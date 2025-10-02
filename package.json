@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@astrojs/node": "^9.4.3",
+    "@astrojs/node": "^9.4.4",
     "@emailjs/browser": "^4.4.1",
     "astro": "^5.13.5",
     "resend": "^6.0.2"
