@@ -1,0 +1,476 @@
+---
+// Footer Component
+const currentYear = new Date().getFullYear();
+
+const footerSections = [
+  {
+    title: "Services",
+    links: [
+      { text: "Strategic Planning", href: "#services" },
+      { text: "Social Media Marketing", href: "#services" },
+      { text: "SEO & Content", href: "#services" },
+      { text: "Design & Graphics", href: "#services" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      // { text: "About Us", href: "#about" },
+      // { text: "Case Studies", href: "#testimonials" },
+      // { text: "Careers", href: "#contact" },
+      { text: "Blog", href: "#contact" },
+      { text: "News", href: "#contact" },
+    ],
+  },
+  // {
+  //   title: "Resources",
+  //   links: [
+  //     { text: "Privacy Policy", href: "#" },
+  //     { text: "Terms of Service", href: "#" },
+  //     { text: "Cookie Policy", href: "#" },
+  //     { text: "Support Center", href: "#contact" },
+  //     { text: "Documentation", href: "#" },
+  //   ],
+  // },
+];
+
+const socialLinks = [
+//   { icon: "fa-brands fa-facebook", href: "#", name: "Facebook" },
+  { icon: "fa-brands fa-instagram", href: "https://www.instagram.com/stormlab.creative/", name: "Instagram" },
+//   { icon: "fa-brands fa-linkedin", href: "#", name: "LinkedIn" },
+//   { icon: "fa-brands fa-twitter", href: "#", name: "Twitter" },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <!-- Company Info -->
+      <div class="footer-section company-info">
+        <div class="footer-logo">StormLab.</div>
+        <p class="company-description">
+          Professional digital marketing agency helping businesses grow through
+          strategic online marketing solutions and innovative digital
+          strategies.
+        </p>
+        <div class="social-links">
+          {
+            socialLinks.map((social) => (
+              <a
+                href={social.href}
+                class="social-link"
+                aria-label={social.name}
+              >
+                <i class={social.icon} />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Footer Sections -->
+      {
+        footerSections.map((section) => (
+          <div class="footer-section">
+            <h4 class="footer-title">{section.title}</h4>
+            <ul class="footer-links">
+              {section.links.map((link) => (
+                <li>
+                  <a href={link.href} class="footer-link">
+                    {link.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+
+      <!-- Contact Info -->
+      <div class="footer-section contact-section">
+        <h4 class="footer-title">Contact Info</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <div></div>
+              <div>Denpasar, Bali</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>+6281915660272</div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📧</span>
+            <div>stormlabcreative@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p>&copy; {currentYear} StormLab. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <!-- <a href="#" class="bottom-link">Privacy Policy</a>
+          <span class="separator">|</span>
+          <a href="#" class="bottom-link">Terms of Service</a>
+          <span class="separator">|</span>
+          <a href="#" class="bottom-link">Sitemap</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ================================
+       FOOTER STYLES
+    ================================ */
+  .footer {
+    background: var(--primary-black);
+    color: var(--pure-white);
+    padding: 4rem 0 0;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-section {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .footer-section:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .footer-section:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .footer-section:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .footer-section:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .footer-section:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  /* Company Info */
+  .company-info .footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--pure-white);
+  }
+
+  .company-description {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--tertiary-black);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+
+  .social-link:hover {
+    background: var(--pure-white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+
+  /* Footer Sections */
+  .footer-title {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--pure-white);
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    position: relative;
+  }
+
+  .footer-link:hover {
+    color: var(--pure-white);
+    transform: translateX(5px);
+  }
+
+  .footer-link::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--pure-white);
+    transition: width 0.3s ease;
+    transform: translateY(-50%);
+  }
+
+  .footer-link:hover::before {
+    width: 6px;
+  }
+
+  /* Contact Section */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .contact-icon {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    border-top: 1px solid var(--tertiary-black);
+    padding: 2rem 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-bottom p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .bottom-link {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+  }
+
+  .bottom-link:hover {
+    color: var(--pure-white);
+  }
+
+  .separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+  }
+
+  /* Scroll to top button */
+  .scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-black);
+    color: var(--pure-white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .scroll-to-top:hover {
+    background: var(--secondary-black);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 1024px) {
+    .footer-content {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .company-info {
+      grid-column: 1 / -1;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .contact-section {
+      grid-column: 1 / -1;
+    }
+
+    .footer-bottom-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer {
+      padding: 3rem 0 0;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .scroll-to-top {
+      width: 45px;
+      height: 45px;
+      bottom: 1rem;
+      right: 1rem;
+    }
+  }
+</style>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+  ↑
+</button>
+
+<script>
+  // ================================
+  // FOOTER FUNCTIONALITY
+  // ================================
+  document.addEventListener("DOMContentLoaded", function () {
+    const scrollToTopBtn = document.getElementById("scrollToTop");
+
+    // Show/hide scroll to top button
+    window.addEventListener("scroll", function () {
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn?.classList.add("visible");
+      } else {
+        scrollToTopBtn?.classList.remove("visible");
+      }
+    });
+
+    // Scroll to top functionality
+    scrollToTopBtn?.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    // Add hover effects to footer links
+    const footerLinks = document.querySelectorAll(".footer-link");
+    footerLinks.forEach((link) => {
+      link.addEventListener("mouseenter", function () {
+        this.style.paddingLeft = "15px";
+      });
+
+      link.addEventListener("mouseleave", function () {
+        this.style.paddingLeft = "0";
+      });
+    });
+
+    // Social links interaction
+    const socialLinks = document.querySelectorAll(".social-link");
+    socialLinks.forEach((link, index) => {
+      link.addEventListener("mouseenter", function () {
+        this.style.animationDelay = `${index * 0.1}s`;
+        this.style.animation = "bounce 0.6s ease";
+      });
+
+      link.addEventListener("mouseleave", function () {
+        this.style.animation = "";
+      });
+    });
+  });
+
+  
+
+  // Bounce animation for social links
+  const style = document.createElement("style");
+  style.textContent = `
+        @keyframes bounce {
+            0%, 20%, 60%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            80% {
+                transform: translateY(-5px);
+            }
+        }
+    `;
+  document.head.appendChild(style);
+</script>

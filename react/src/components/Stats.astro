@@ -1,0 +1,186 @@
+---
+// Stats Section Component
+const stats = [
+    { number: 500, label: "Projects Completed" },
+    { number: 250, label: "Happy Clients" },
+    { number: 98, label: "Success Rate %" },
+    { number: 8, label: "Years Experience" }
+];
+---
+
+<section id="about" class="stats">
+    <div class="container">
+        <div class="section-header scroll-animate">
+            <div class="section-subtitle">Proven Results</div>
+            <h2 class="section-title">Numbers That Speak</h2>
+            <p class="section-description">
+                Our track record of success speaks for itself. Here's what we've achieved for our clients.
+            </p>
+        </div>
+        <div class="stats-grid">
+            {stats.map((stat, index) => (
+                <div class="stats-item scroll-animate" data-delay={index * 200}>
+                    <span class="stats-number" data-count={stat.number}>0</span>
+                    <span class="stats-label">{stat.label}</span>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ================================
+       STATS SECTION STYLES
+    ================================ */
+    .stats {
+        padding: 6rem 0;
+        background: var(--primary-black);
+        color: var(--pure-white);
+    }
+
+    .stats .section-subtitle {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .stats .section-title {
+        color: var(--pure-white);
+    }
+
+    .stats .section-description {
+        color: rgba(255,255,255,0.8);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .stats-item {
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+
+    .stats-item.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .stats-number {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        display: block;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stats-label {
+        font-size: 1rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+    }
+
+    /* Animation for numbers */
+    .stats-number.counting {
+        animation: pulse 0.1s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<script>
+    // ================================
+    // STATS COUNTER ANIMATION
+    // ================================
+    document.addEventListener('DOMContentLoaded', function() {
+        function animateStats() {
+            const statsNumbers = document.querySelectorAll('.stats-number[data-count]');
+            
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalValue = parseInt(target.getAttribute('data-count') || '0');
+                        let currentValue = 0;
+                        const increment = finalValue / 60; // 60 frames for smooth animation
+                        const isPercentage = target.nextElementSibling?.textContent.includes('%');
+                        
+                        const updateCounter = () => {
+                            currentValue += increment;
+                            if (currentValue < finalValue) {
+                                const displayValue = Math.floor(currentValue);
+                                target.textContent = displayValue + (isPercentage ? '%' : '');
+                                target.classList.add('counting');
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                target.textContent = finalValue + (isPercentage ? '%' : '');
+                                target.classList.remove('counting');
+                            }
+                        };
+                        
+                        // Add slight delay for staggered effect
+                        const delay = parseInt(target.parentElement?.getAttribute('data-delay') || '0');
+                        setTimeout(() => {
+                            updateCounter();
+                        }, delay);
+                        
+                        statsObserver.unobserve(target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            statsNumbers.forEach(stat => statsObserver.observe(stat));
+        }
+
+        animateStats();
+
+        // Add hover effect to stats items
+        const statsItems = document.querySelectorAll('.stats-item');
+        statsItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.05)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    });
+</script>

@@ -1,0 +1,306 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Professional digital marketing services to grow your business",
+} = Astro.props;
+
+import "../styles/global.css";
+import "../pages/api/contact"; 
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Excon:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/global.css" />
+
+    <style>
+      /* WhatsApp Floating Button */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 9998;
+        opacity: 0;
+        transform: scale(0);
+        animation: fadeInScale 0.5s ease 1s forwards;
+      }
+
+      .whatsapp-button {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .whatsapp-button::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .whatsapp-button:hover::before {
+        opacity: 1;
+      }
+
+      .whatsapp-button:hover {
+        transform: scale(1.1) translateY(-3px);
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+      }
+
+      .whatsapp-button i {
+        font-size: 28px;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .whatsapp-button:hover i {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      /* Pulse Animation */
+      .whatsapp-button::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid #25D366;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Tooltip */
+      .whatsapp-tooltip {
+        position: absolute;
+        right: 75px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .whatsapp-tooltip::after {
+        content: '';
+        position: absolute;
+        right: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 6px solid rgba(0, 0, 0, 0.9);
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+      }
+
+      .whatsapp-float:hover .whatsapp-tooltip {
+        opacity: 1;
+        right: 85px;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .whatsapp-float {
+          bottom: 1.5rem;
+          right: 1.5rem;
+        }
+
+        .whatsapp-button {
+          width: 55px;
+          height: 55px;
+        }
+
+        .whatsapp-button i {
+          font-size: 26px;
+        }
+
+        .whatsapp-tooltip {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .whatsapp-float {
+          bottom: 1rem;
+          right: 1rem;
+        }
+
+        .whatsapp-button {
+          width: 50px;
+          height: 50px;
+        }
+
+        .whatsapp-button i {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+      
+      <a
+        href="https://wa.me/6281915660272"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-button"
+        aria-label="Chat with us on WhatsApp"
+      >
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat with us</span>
+      </a>
+    </div>
+
+    <!-- Global Scripts -->
+    <script>
+      // ================================
+      // LOADING ANIMATION
+      // ================================
+      window.addEventListener("load", function () {
+        setTimeout(() => {
+          document.getElementById("loadingOverlay")?.classList.add("hidden");
+        }, 1000);
+      });
+
+      // ================================
+      // SCROLL ANIMATIONS
+      // ================================
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+          }
+        });
+      }, observerOptions);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".scroll-animate").forEach((el) => {
+          observer.observe(el);
+        });
+      });
+
+      // ================================
+      // SMOOTH SCROLLING
+      // ================================
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+      });
+
+      // ================================
+      // PERFORMANCE OPTIMIZATION
+      // ================================
+      let ticking = false;
+
+      function updateOnScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            // Scroll-based animations here
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener("scroll", updateOnScroll);
+    </script>
+  </body>
+</html>

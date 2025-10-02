@@ -1,0 +1,807 @@
+---
+// Portfolio.astro - Minimalist & Modern Portfolio Section
+// Ready for backend integration
+
+// Sample portfolio data - This will be replaced with API/CMS data
+const portfolioItems = [
+  {
+    id: 1,
+    title: "Gong Cha - Have a Grape Day",
+    category: "Social Media Campaign",
+    client: "Gong Cha Indonesia",
+    year: "2024",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["Social Media", "Campaign", "F&B"],
+    stats: {
+      reach: "2.5M+",
+      engagement: "8.5%",
+      duration: "3 Months"
+    },
+    color: "rgba(147, 51, 234, 0.1)", // purple
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Softex Celana Menstruasi",
+    category: "Digital Marketing",
+    client: "Softex Indonesia",
+    year: "2024",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["Healthcare", "Education", "Video"],
+    stats: {
+      reach: "5.2M+",
+      engagement: "92%",
+      duration: "6 Months"
+    },
+    color: "rgba(59, 130, 246, 0.1)", // blue
+    featured: true
+  },
+  {
+    id: 3,
+    title: "TechStart Digital Transformation",
+    category: "Brand Development",
+    client: "TechStart Indonesia",
+    year: "2023",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["Tech", "Branding", "Web Dev"],
+    stats: {
+      reach: "320%",
+      engagement: "12.3%",
+      duration: "4 Months"
+    },
+    color: "rgba(16, 185, 129, 0.1)", // green
+    featured: false
+  },
+  {
+    id: 4,
+    title: "Fashion Forward E-commerce",
+    category: "E-commerce",
+    client: "Fashion Forward",
+    year: "2023",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["Fashion", "E-commerce", "Digital"],
+    stats: {
+      reach: "10K+",
+      engagement: "35%",
+      duration: "5 Months"
+    },
+    color: "rgba(236, 72, 153, 0.1)", // pink
+    featured: false
+  },
+  {
+    id: 5,
+    title: "GreenLife Sustainability Campaign",
+    category: "Social Impact",
+    client: "GreenLife Foundation",
+    year: "2023",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["Environment", "Social", "Campaign"],
+    stats: {
+      reach: "1.8M+",
+      engagement: "15.2%",
+      duration: "8 Months"
+    },
+    color: "rgba(34, 197, 94, 0.1)", // emerald
+    featured: false
+  },
+  {
+    id: 6,
+    title: "FinTech App Launch Strategy",
+    category: "Product Launch",
+    client: "SecurePay",
+    year: "2024",
+    image: "/public/STORMLAB-LOGOArtboard-9.png",
+    tags: ["FinTech", "App", "Strategy"],
+    stats: {
+      reach: "50K+",
+      engagement: "42%",
+      duration: "3 Months"
+    },
+    color: "rgba(251, 146, 60, 0.1)", // orange
+    featured: false
+  }
+];
+
+const categories = ["All Projects", "Social Media Campaign", "Digital Marketing", "Brand Development", "E-commerce", "Social Impact", "Product Launch"];
+---
+
+<style>
+  .portfolio-section {
+    padding: 5rem 0 6rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle Background Pattern */
+  .portfolio-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.02) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.02) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* Header */
+  .portfolio-header {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .portfolio-label {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: #799EFF;
+    border-radius: 50px;
+    font-family: 'Dyson Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #FFBC4C;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .portfolio-title {
+    font-family: 'Dyson Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary-black);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+  }
+
+  .portfolio-description {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+  }
+
+  /* Filter Navigation */
+  .portfolio-filter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.6s forwards;
+  }
+
+  .filter-wrapper {
+    display: inline-flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+
+  .filter-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 0.65rem 1.25rem;
+    border: none;
+    background: transparent;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .filter-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-black);
+    border-radius: 25px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .filter-btn.active::before,
+  .filter-btn:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .filter-btn.active,
+  .filter-btn:hover {
+    color: black;
+  }
+
+  /* Portfolio Grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Portfolio Item Variations */
+  .portfolio-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .portfolio-item.hidden {
+    display: none;
+  }
+
+  /* Featured items span more columns */
+  .portfolio-item.featured {
+    grid-column: span 8;
+  }
+
+  .portfolio-item:not(.featured) {
+    grid-column: span 4;
+  }
+
+  /* Card */
+  .portfolio-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .portfolio-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .portfolio-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Image Container */
+  .card-image {
+    position: relative;
+    width: 100%;
+    padding-top: 60%;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .featured .card-image {
+    padding-top: 50%;
+  }
+
+  .card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-card:hover .card-image img {
+    transform: scale(1.08);
+  }
+
+  /* Color Accent Overlay */
+  .card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--card-color, rgba(0,0,0,0.05));
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .portfolio-card:hover .card-accent {
+    opacity: 1;
+  }
+
+  /* Featured Badge */
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 2;
+  }
+
+  /* Tags */
+  .card-tags {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+  }
+
+  .portfolio-card:hover .card-tags {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.35rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-black);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Card Content */
+  .card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .card-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--medium-gray);
+  }
+
+  .card-year {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    background: rgba(0, 0, 0, 0.04);
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary-black);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .featured .card-title {
+    font-size: 1.6rem;
+  }
+
+  .card-client {
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+    font-weight: 500;
+  }
+
+  /* View All Button */
+  .portfolio-footer {
+    text-align: center;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--primary-black);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .view-all-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  .view-all-btn:hover::before {
+    transform: translateX(100%);
+  }
+
+  .view-all-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-arrow {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .view-all-btn:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .portfolio-item.featured,
+    .portfolio-item:not(.featured) {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-section {
+      padding: 4rem 0;
+    }
+
+    .portfolio-header {
+      margin-bottom: 3rem;
+    }
+
+    .portfolio-title {
+      font-size: 2rem;
+    }
+
+    .portfolio-description {
+      font-size: 1rem;
+    }
+
+    .portfolio-filter {
+      margin-bottom: 2rem;
+    }
+
+    .filter-wrapper {
+      padding: 0.4rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .portfolio-grid {
+      gap: 1.5rem;
+    }
+
+    .portfolio-item.featured,
+    .portfolio-item:not(.featured) {
+      grid-column: span 12;
+    }
+
+    .card-content {
+      padding: 1.25rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+    }
+
+    .featured .card-title {
+      font-size: 1.3rem;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+
+    .stat-value {
+      font-size: 0.9rem;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+    }
+
+    .portfolio-footer {
+      margin-top: 3rem;
+    }
+
+    .view-all-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<section class="portfolio-section" id="portfolio">
+  <div class="container">
+    <!-- Header -->
+    <div class="portfolio-header">
+      <span class="portfolio-label">Our Work</span>
+      <h2 class="portfolio-title">selected projects</h2>
+      <p class="portfolio-description">
+        Explore our portfolio of successful campaigns and digital transformations that have helped brands achieve remarkable growth.
+      </p>
+    </div>
+
+    <!-- Filter -->
+    <div class="portfolio-filter">
+      <div class="filter-wrapper">
+        {categories.map((category, index) => (
+          <button 
+            class={`filter-btn ${index === 0 ? 'active' : ''}`}
+            data-filter={category === 'All Projects' ? 'all' : category.toLowerCase().replace(/\s+/g, '-')}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+      {portfolioItems.map((item, index) => (
+        <div 
+          class={`portfolio-item ${item.featured ? 'featured' : ''}`}
+          data-category={item.category.toLowerCase().replace(/\s+/g, '-')}
+          data-id={item.id}
+          style={`--card-color: ${item.color}`}
+        >
+          <article class="portfolio-card">
+            <!-- Image -->
+            <div class="card-image">
+              <img src={item.image} alt={item.title} loading="lazy" />
+              <div class="card-accent"></div>
+              
+              {item.featured && (
+                <div class="featured-badge">Featured</div>
+              )}
+              
+              <div class="card-tags">
+                {item.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="card-content">
+              <div class="card-meta">
+                <span class="card-category">{item.category}</span>
+                <span class="card-year">{item.year}</span>
+              </div>
+
+              <h3 class="card-title">{item.title}</h3>
+              <p class="card-client">{item.client}</p>
+            </div>
+          </article>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footer -->
+    <div class="portfolio-footer">
+      <button class="view-all-btn">
+        <span>View All Projects</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Portfolio Filter Functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter items with animation
+        portfolioItems.forEach((item, index) => {
+          const category = item.dataset.category;
+          
+          item.classList.remove('animate');
+          
+          if (filter === 'all' || category === filter) {
+            item.classList.remove('hidden');
+            setTimeout(() => {
+              item.classList.add('animate');
+            }, index * 50);
+          } else {
+            setTimeout(() => {
+              item.classList.add('hidden');
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate');
+          }, index * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    portfolioItems.forEach(item => {
+      observer.observe(item);
+    });
+
+    // Portfolio item click handler (for modal or navigation)
+    portfolioItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const projectId = item.dataset.id;
+        console.log('Opening project:', projectId);
+        // Add your navigation/modal logic here
+        // window.location.href = `/portfolio/${projectId}`;
+      });
+    });
+
+    // View All button
+    const viewAllBtn = document.querySelector('.view-all-btn');
+    if (viewAllBtn) {
+      viewAllBtn.addEventListener('click', () => {
+        console.log('View all projects');
+        // Add your navigation logic here
+        // window.location.href = '/portfolio';
+      });
+    }
+  });
+
+  // Smooth scroll for hash links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>
+
+<!-- 
+BACKEND INTEGRATION NOTES:
+========================
+
+1. Data Structure for API/CMS:
+   - Create a Portfolio model with fields:
+     * id (unique identifier)
+     * title (string)
+     * category (string/enum)
+     * client (string)
+     * year (number)
+     * image (url/file)
+     * tags (array of strings)
+     * stats (object with reach, engagement, duration)
+     * color (hex/rgba color)
+     * featured (boolean)
+     * createdAt, updatedAt (timestamps)
+
+2. API Endpoints needed:
+   GET /api/portfolio - Get all portfolio items (with pagination)
+   GET /api/portfolio/:id - Get single portfolio item
+   GET /api/portfolio/categories - Get all categories
+   GET /api/portfolio/featured - Get featured items only
+   POST /api/portfolio - Create new portfolio item (admin)
+   PUT /api/portfolio/:id - Update portfolio item (admin)
+   DELETE /api/portfolio/:id - Delete portfolio item (admin)
+
+3. Replace the portfolioItems array with:
+   const response = await fetch('/api/portfolio');
+   const portfolioItems = await response.json();
+
+4. Add loading states and error handling
+5. Implement image upload/management system
+6. Add search and advanced filtering
+7. Consider pagination or infinite scroll for large portfolios
+-->

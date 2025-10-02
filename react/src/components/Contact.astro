@@ -1,0 +1,745 @@
+---
+const contactInfo = [
+    {
+        icon: "📍",
+        title: "Office Location",
+        detail: "Jl. Gattot Subroto, Bali, Indonesia"
+    },
+    {
+        icon: "📞",
+        title: "Phone Number",
+        detail: "+62 21 1234 5678"
+    },
+    {
+        icon: "📧",
+        title: "Email Address",
+        detail: "hello@stormlab.co.id"
+    },
+    {
+        icon: "⏰",
+        title: "Business Hours",
+        detail: "Mon - Fri: 9AM - 6PM WIB"
+    }
+];
+---
+
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="section-header scroll-animate">
+            <div class="section-subtitle">Get In Touch</div>
+            <h2 class="section-title">Ready to Grow Your Business?</h2>
+            <p class="section-description">
+                Let's discuss how we can help you achieve your digital marketing goals. Get in touch for a free consultation.
+            </p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info scroll-animate">
+                <h3>Let's Start a Conversation</h3>
+                <p>
+                    Ready to take your digital marketing to the next level? We're here to help you succeed. Contact us today for a free consultation and discover how we can drive your business growth.
+                </p>
+                
+                <div class="contact-details">
+                    {contactInfo.map((info, index) => (
+                        <div class="contact-item" data-delay={index * 100}>
+                            <div class="contact-icon">{info.icon}</div>
+                            <div>
+                                <h4>{info.title}</h4>
+                                <p>{info.detail}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper scroll-animate">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name *</label>
+                            <input type="text" class="form-input" name="firstName" required>
+                            <span class="form-error" id="firstName-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name *</label>
+                            <input type="text" class="form-input" name="lastName" required>
+                            <span class="form-error" id="lastName-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-input" name="email" required>
+                            <span class="form-error" id="email-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" name="phone">
+                            <span class="form-error" id="phone-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" class="form-input" name="company">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Service Interest</label>
+                        <select class="form-input" name="service">
+                            <option value="">Select a service...</option>
+                            <option value="strategic-planning">Strategic Planning</option>
+                            <option value="social-media">Social Media Marketing</option>
+                            <option value="seo-content">SEO & Content Marketing</option>
+                            <option value="ppc-advertising">PPC & Paid Advertising</option>
+                            <option value="email-marketing">Email Marketing</option>
+                            <option value="analytics">Analytics & Reporting</option>
+                            <option value="full-package">Complete Digital Marketing Package</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Budget Range</label>
+                        <select class="form-input" name="budget">
+                            <option value="">Select budget range...</option>
+                            <option value="under-10m">Under Rp 10 Million</option>
+                            <option value="10m-25m">Rp 10 - 25 Million</option>
+                            <option value="25m-50m">Rp 25 - 50 Million</option>
+                            <option value="50m-100m">Rp 50 - 100 Million</option>
+                            <option value="over-100m">Over Rp 100 Million</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Project Details *</label>
+                        <textarea class="form-textarea" name="message" placeholder="Tell us about your project, goals, and how we can help you..." required></textarea>
+                        <span class="form-error" id="message-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" class="form-checkbox">
+                            <span class="checkmark"></span>
+                            Subscribe to our newsletter for digital marketing tips and updates
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label required">
+                            <input type="checkbox" name="privacy" class="form-checkbox" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" class="privacy-link">Privacy Policy</a> and <a href="#" class="privacy-link">Terms of Service</a> *
+                        </label>
+                        <span class="form-error" id="privacy-error"></span>
+                    </div>
+
+                    <button type="submit" class="form-submit" id="submitButton">
+                        <span class="submit-icon">📧</span>
+                        <span class="submit-text">Send Message</span>
+                        <span class="submit-loading" style="display: none;">
+                            <span class="spinner"></span>
+                            Sending...
+                        </span>
+                        <span class="submit-success" style="display: none;">
+                            <span class="success-icon">✅</span>
+                            Message Sent!
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage" style="display: none;">
+                    <div class="success-content">
+                        <div class="success-icon-large">🎉</div>
+                        <h3>Thank You!</h3>
+                        <p>Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+                        <button class="btn-secondary" onclick="resetForm()">Send Another Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ================================
+       CONTACT SECTION STYLES
+    ================================ */
+    .contact {
+        padding: 6rem 0;
+        background: var(--light-gray);
+    }
+
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+        margin-top: 3rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--primary-black);
+        margin-bottom: 1rem;
+    }
+
+    .contact-info > p {
+        color: var(--medium-gray);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.6s ease;
+    }
+
+    .contact-item.animate {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-black);
+        color: var(--pure-white);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        transition: var(--transition);
+    }
+
+    .contact-item:hover .contact-icon {
+        transform: scale(1.1);
+        box-shadow: var(--shadow);
+    }
+
+    .contact-item h4 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-black);
+        margin-bottom: 0.25rem;
+    }
+
+    .contact-item p {
+        margin: 0;
+        color: var(--medium-gray);
+        font-size: 0.9rem;
+    }
+
+    .contact-form-wrapper {
+        background: var(--pure-white);
+        padding: 2.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-gray);
+        box-shadow: var(--shadow);
+        position: relative;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .form-label {
+        margin-bottom: 0.5rem;
+        color: var(--primary-black);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-gray);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        background: var(--pure-white);
+        font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary-black);
+        box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.1);
+    }
+
+    .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .form-input.error,
+    .form-textarea.error {
+        border-color: #ef4444;
+        animation: shake 0.3s ease-in-out;
+    }
+
+    .form-error {
+        color: #ef4444;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        min-height: 1rem;
+        display: block;
+    }
+
+    /* Checkbox Styles */
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 0;
+    }
+
+    .form-checkbox {
+        display: none;
+    }
+
+    .checkmark {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border-gray);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .form-checkbox:checked + .checkmark {
+        background: var(--primary-black);
+        border-color: var(--primary-black);
+    }
+
+    .form-checkbox:checked + .checkmark::after {
+        content: '✓';
+        color: var(--pure-white);
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .privacy-link {
+        color: var(--primary-black);
+        text-decoration: underline;
+    }
+
+    .privacy-link:hover {
+        color: var(--medium-gray);
+    }
+
+    .form-submit {
+        background: var(--primary-black);
+        color: var(--pure-white);
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .form-submit:hover:not(:disabled) {
+        background: var(--secondary-black);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    .form-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .form-submit.success {
+        background: #10b981;
+    }
+
+    .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-top: 2px solid var(--pure-white);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    /* Success Message */
+    .success-message {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--pure-white);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .success-content h3 {
+        font-size: 1.5rem;
+        color: var(--primary-black);
+        margin-bottom: 1rem;
+    }
+
+    .success-content p {
+        color: var(--medium-gray);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .success-icon-large {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: bounce 1s ease infinite;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes bounce {
+        0%, 20%, 60%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        80% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-form-wrapper {
+            padding: 2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-form-wrapper {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    // Import EmailJS config
+    import { EMAILJS_CONFIG } from '../scripts/emailjs-config.js';
+    
+    // ================================
+    // CONTACT FORM WITH EMAILJS INTEGRATION
+    // ================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const contactItems = document.querySelectorAll('.contact-item');
+        const submitButton = document.getElementById('submitButton');
+        const successMessage = document.getElementById('successMessage');
+
+        // Initialize EmailJS
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+        }
+
+        // Animate contact items on scroll
+        const contactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = parseInt(entry.target.getAttribute('data-delay') || '0');
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, delay);
+                }
+            });
+        });
+
+        contactItems.forEach(item => {
+            contactObserver.observe(item);
+        });
+
+        // Form validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+            return !phone || re.test(phone);
+        }
+
+        function showError(fieldName, message) {
+            const errorElement = document.getElementById(`${fieldName}-error`);
+            const inputElement = document.querySelector(`[name="${fieldName}"]`);
+            
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+            if (inputElement) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearError(fieldName) {
+            const errorElement = document.getElementById(`${fieldName}-error`);
+            const inputElement = document.querySelector(`[name="${fieldName}"]`);
+            
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+            if (inputElement) {
+                inputElement.classList.remove('error');
+            }
+        }
+
+        function clearAllErrors() {
+            const errorElements = document.querySelectorAll('.form-error');
+            const inputElements = document.querySelectorAll('.form-input, .form-textarea');
+            
+            errorElements.forEach(el => el.textContent = '');
+            inputElements.forEach(el => el.classList.remove('error'));
+        }
+
+        function validateForm(formData) {
+            let isValid = true;
+            clearAllErrors();
+
+            // Required field validation
+            const requiredFields = ['firstName', 'lastName', 'email', 'message'];
+            
+            requiredFields.forEach(field => {
+                if (!formData.get(field)?.trim()) {
+                    showError(field, 'This field is required');
+                    isValid = false;
+                }
+            });
+
+            // Email validation
+            const email = formData.get('email');
+            if (email && !validateEmail(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Phone validation
+            const phone = formData.get('phone');
+            if (phone && !validatePhone(phone)) {
+                showError('phone', 'Please enter a valid phone number');
+                isValid = false;
+            }
+
+            // Privacy policy validation
+            if (!formData.get('privacy')) {
+                showError('privacy', 'You must accept the privacy policy to continue');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function setButtonState(state) {
+            const submitText = submitButton.querySelector('.submit-text');
+            const submitLoading = submitButton.querySelector('.submit-loading');
+            const submitSuccess = submitButton.querySelector('.submit-success');
+
+            // Reset all states
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'none';
+            submitSuccess.style.display = 'none';
+            
+            submitButton.classList.remove('success');
+            submitButton.disabled = false;
+
+            switch(state) {
+                case 'loading':
+                    submitLoading.style.display = 'flex';
+                    submitButton.disabled = true;
+                    break;
+                case 'success':
+                    submitSuccess.style.display = 'flex';
+                    submitButton.classList.add('success');
+                    submitButton.disabled = true;
+                    break;
+                case 'error':
+                    submitText.style.display = 'flex';
+                    submitText.textContent = 'Try Again';
+                    break;
+                default:
+                    submitText.style.display = 'flex';
+                    submitText.textContent = 'Send Message';
+            }
+        }
+
+        // Form submission handler with EmailJS
+        contactForm?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            // Validate form
+            if (!validateForm(formData)) {
+                return;
+            }
+
+            // Set loading state
+            setButtonState('loading');
+            
+            try {
+                // Prepare template parameters for EmailJS
+                const templateParams = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone') || 'Not provided',
+                    company: formData.get('company') || 'Not provided',
+                    service: formData.get('service') || 'Not specified',
+                    budget: formData.get('budget') || 'Not specified',
+                    message: formData.get('message'),
+                    newsletter: formData.get('newsletter') ? 'Yes' : 'No',
+                    timestamp: new Date().toLocaleString()
+                };
+
+                // Send email via EmailJS
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.serviceID,
+                    EMAILJS_CONFIG.templateID,
+                    templateParams
+                );
+
+                console.log('EmailJS Response:', response);
+
+                if (response.status === 200) {
+                    // Show success state
+                    setButtonState('success');
+                    
+                    // Show success message after delay
+                    setTimeout(() => {
+                        contactForm.style.display = 'none';
+                        successMessage.style.display = 'flex';
+                    }, 1500);
+
+                    // Track conversion (if analytics enabled)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            event_category: 'Contact',
+                            event_label: 'Contact Form EmailJS'
+                        });
+                    }
+
+                } else {
+                    throw new Error('Failed to send email');
+                }
+
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+                setButtonState('error');
+                
+                // Show user-friendly error message
+                alert('Sorry, there was an error sending your message. Please try again or contact us directly.');
+                
+                // Reset button after delay
+                setTimeout(() => {
+                    setButtonState('default');
+                }, 3000);
+            }
+        });
+
+        // Real-time validation
+        const formInputs = contactForm?.querySelectorAll('.form-input, .form-textarea');
+        formInputs?.forEach(input => {
+            input.addEventListener('blur', function() {
+                const name = this.getAttribute('name');
+                const value = this.value.trim();
+
+                clearError(name);
+
+                if (this.hasAttribute('required') && !value) {
+                    showError(name, 'This field is required');
+                } else if (name === 'email' && value && !validateEmail(value)) {
+                    showError(name, 'Please enter a valid email address');
+                } else if (name === 'phone' && value && !validatePhone(value)) {
+                    showError(name, 'Please enter a valid phone number');
+                }
+            });
+
+            input.addEventListener('input', function() {
+                clearError(this.getAttribute('name'));
+            });
+        });
+
+        // Global reset function
+        window.resetForm = function() {
+            contactForm.reset();
+            contactForm.style.display = 'flex';
+            successMessage.style.display = 'none';
+            setButtonState('default');
+            clearAllErrors();
+        };
+    });
+</script>

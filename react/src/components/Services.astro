@@ -1,0 +1,1032 @@
+---
+// Enhanced Services Section Component with Advanced Animations
+const services = [
+  {
+    icon: "🎯",
+    title: "Strategic Planning",
+    description:
+      "Comprehensive digital marketing strategies tailored to your business goals, target audience analysis, and competitive positioning for maximum market impact.",
+    features: ["Market Research", "Competitor Analysis", "ROI Optimization"],
+    color: "from-blue-500 to-purple-600",
+  },
+  {
+    icon: "📱",
+    title: "Social Media Marketing",
+    description:
+      "Build authentic connections with your audience through engaging content, community management, and targeted social media campaigns across all platforms.",
+    features: [
+      "Content Creation",
+      "Community Management",
+      "Influencer Partnerships",
+    ],
+    color: "from-pink-500 to-red-600",
+  },
+  {
+    icon: "🔍",
+    title: "SEO & Content Marketing",
+    description:
+      "Increase organic visibility and drive qualified traffic with technical SEO, keyword optimization, and high-quality content that converts visitors into customers.",
+    features: ["Technical SEO", "Content Strategy", "Link Building"],
+    color: "from-green-500 to-teal-600",
+  },
+  {
+    icon: "💰",
+    title: "PPC & Paid Advertising",
+    description:
+      "Maximize ROI with data-driven paid advertising campaigns on Google Ads, Facebook, LinkedIn, and other platforms with continuous optimization.",
+    features: ["Google Ads", "Facebook Ads", "Campaign Optimization"],
+    color: "from-yellow-500 to-orange-600",
+  },
+  {
+    icon: "📧",
+    title: "Email Marketing",
+    description:
+      "Build lasting relationships through personalized email campaigns, automated workflows, and segmentation strategies that drive repeat business.",
+    features: ["Automation", "Segmentation", "A/B Testing"],
+    color: "from-indigo-500 to-blue-600",
+  },
+  {
+    icon: "📊",
+    title: "Analytics & Reporting",
+    description:
+      "Make informed decisions with comprehensive analytics, detailed reporting, and actionable insights to continuously improve campaign performance.",
+    features: ["Data Analysis", "Custom Reports", "Performance Tracking"],
+    color: "from-purple-500 to-pink-600",
+  },
+];
+---
+
+<section id="services" class="services">
+  <div class="services-background">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-header scroll-animate">
+      <div class="section-subtitle">Our Expertise</div>
+      <h2 class="section-title">Complete Digital Marketing Solutions</h2>
+      <p class="section-description">
+        From strategy to execution, we provide comprehensive digital marketing
+        services that deliver measurable results and drive sustainable business
+        growth.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {
+        services.map((service, index) => (
+          <div
+            class="service-card scroll-animate"
+            data-delay={index * 150}
+            data-color={service.color}
+          >
+            <div class="card-background">
+              <div class="card-gradient" />
+              <div class="card-pattern" />
+            </div>
+
+            <div class="card-content">
+              <div class="service-header">
+                <div class="service-icon">
+                  <span class="icon-emoji">{service.icon}</span>
+                  <div class="icon-backdrop" />
+                </div>
+
+                <div class="service-meta">
+                  <h3 class="service-title">{service.title}</h3>
+                  <div class="service-badge">Premium</div>
+                </div>
+              </div>
+
+              <p class="service-description">{service.description}</p>
+
+              <div class="service-features">
+                {service.features.map((feature) => (
+                  <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span class="feature-text">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* <div class="service-footer">
+                <a href="#contact" class="service-link">
+                  <span class="link-text">Learn More</span>
+                  <span class="link-arrow">→</span>
+                </a>
+              </div> */}
+            </div>
+
+            <div class="card-effects">
+            <div class="hover-glow"></div>
+            <div class="particle-system">
+              <div class="particle p-1"></div>
+              <div class="particle p-2"></div>
+              <div class="particle p-3"></div>
+            </div>
+          </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="services-cta scroll-animate">
+      <div class="cta-content">
+        <h3 class="cta-title">Ready to Transform Your Business?</h3>
+        <p class="cta-description">
+          Let's create a custom digital marketing strategy that drives real
+          results for your business.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn-primary enhanced">
+            <span class="btn-content">
+              <span class="btn-icon">🚀</span>
+              <span class="btn-text">Start Your Journey</span>
+            </span>
+            <div class="btn-ripple"></div>
+          </a>
+          <a href="#testimonials" class="btn-secondary enhanced">
+            <span class="btn-content">
+              <span class="btn-icon">👥</span>
+              <span class="btn-text">View Success Stories</span>
+            </span>
+            <div class="btn-ripple"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ================================
+     ENHANCED SERVICES SECTION STYLES
+  ================================ */
+  .services {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated Background */
+  .services-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: shapeFloat 20s ease-in-out infinite;
+  }
+
+  .shape-1 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .shape-2 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, #10b981, #06b6d4);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    top: 60%;
+    right: 15%;
+    animation-delay: 5s;
+  }
+
+  .shape-3 {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #f59e0b, #ef4444);
+    border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 10s;
+  }
+
+  .shape-4 {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, #8b5cf6, #ec4899);
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+    top: 30%;
+    right: 60%;
+    animation-delay: 15s;
+  }
+
+  /* Services Grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 4rem;
+  }
+
+  /* Enhanced Service Cards */
+  .service-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+    transform-style: preserve-3d;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  .service-card:hover::before {
+    opacity: 1;
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(-2deg);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  /* Card Background Elements */
+  .card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .card-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .service-card:hover .card-gradient {
+    opacity: 1;
+  }
+
+  .card-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(
+        circle at 20% 20%,
+        rgba(59, 130, 246, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(139, 92, 246, 0.05) 0%,
+        transparent 50%
+      );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .service-card:hover .card-pattern {
+    opacity: 1;
+  }
+
+  /* Card Content */
+  .card-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Service Header */
+  .service-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-emoji {
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .icon-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  .service-card:hover .icon-backdrop {
+    transform: scale(1);
+    opacity: 1;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.1) 0%,
+      rgba(139, 92, 246, 0.1) 100%
+    );
+  }
+
+  .service-card:hover .icon-emoji {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  .service-meta {
+    flex: 1;
+  }
+
+  .service-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary-black);
+    transition: color 0.3s ease;
+  }
+
+  .service-badge {
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.1),
+      rgba(139, 92, 246, 0.1)
+    );
+    color: var(--primary-black);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .service-card:hover .service-badge {
+    background: linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.2),
+      rgba(139, 92, 246, 0.2)
+    );
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: scale(1.05);
+  }
+
+  /* Service Description */
+  .service-description {
+    font-size: 0.95rem;
+    color: var(--medium-gray);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    flex: 1;
+    transition: color 0.3s ease;
+  }
+
+  .service-card:hover .service-description {
+    color: var(--dark-gray);
+  }
+
+  /* Service Features */
+  .service-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 0.6s ease forwards;
+  }
+
+  .feature-item:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  .feature-item:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  .feature-item:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .feature-check {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .service-card:hover .feature-check {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+
+  .feature-text {
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+    font-weight: 500;
+  }
+
+  /* Service Footer */
+  .service-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-black);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .service-link::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+  }
+
+  .service-link:hover::before {
+    width: 100%;
+  }
+
+  .link-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .service-link:hover .link-arrow {
+    transform: translateX(5px);
+  }
+
+  .indicator-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--medium-gray);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .indicator-text {
+    font-size: 0.8rem;
+    color: var(--medium-gray);
+  }
+
+  /* Card Effects */
+  .card-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .hover-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, blue, yellow);
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+  .service-card:hover .hover-glow {
+    opacity: 0.3;
+    animation: Glow 3s linear infinite;
+  }
+
+  .particle-system {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, black, grey);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .service-card:hover .particle {
+    opacity: 1;
+    animation: particleMove 2s ease-in-out infinite;
+  }
+
+  .p-1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .p-2 {
+    top: 60%;
+    right: 15%;
+    animation-delay: 0.7s;
+  }
+
+  .p-3 {
+    bottom: 30%;
+    left: 70%;
+    animation-delay: 1.4s;
+  }
+
+  /* Services CTA Section */
+  .services-cta {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.03) 0%,
+      rgba(0, 0, 0, 0.01) 100%
+    );
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .services-cta::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: transform 0.6s ease;
+  }
+
+  .services-cta:hover::before {
+    transform: rotate(45deg) translate(20px, 20px);
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-black);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cta-description {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Animations */
+  @keyframes shapeFloat {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translate(-20px, -20px) rotate(90deg) scale(1.1);
+    }
+    50% {
+      transform: translate(20px, -10px) rotate(180deg) scale(0.9);
+    }
+    75% {
+      transform: translate(-10px, 20px) rotate(270deg) scale(1.1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes Glow {
+    0% {
+      background-color: blue;
+    }
+    100% {
+      background-color: yellow;
+    }
+  }
+
+  @keyframes particleMove {
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 1;
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px) scale(1.2);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(-40px) translateX(-5px) scale(0.8);
+      opacity: 0.6;
+    }
+    75% {
+      transform: translateY(-20px) translateX(-15px) scale(1.1);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      margin: 0 auto;
+      max-width: 400px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .services-cta {
+      padding: 2rem 1rem;
+    }
+
+    .cta-title {
+      font-size: 1.6rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .floating-shapes {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services {
+      padding: 4rem 0;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .service-title {
+      font-size: 1.2rem;
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon-emoji {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // ================================
+  // ENHANCED SERVICES ANIMATIONS & INTERACTIONS
+  // ================================
+  document.addEventListener("DOMContentLoaded", function () {
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(
+            entry.target.getAttribute("data-delay") || "0"
+          );
+          setTimeout(() => {
+            entry.target.classList.add("animate");
+          }, delay);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all scroll-animate elements
+    const scrollElements = document.querySelectorAll(".scroll-animate");
+    scrollElements.forEach((el) => observer.observe(el));
+
+    // Service card interactions
+    const serviceCards = document.querySelectorAll(".service-card");
+
+    serviceCards.forEach((card, index) => {
+      // Mouse move effect
+      card.addEventListener("mousemove", function (e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        this.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      // Mouse leave effect
+      card.addEventListener("mouseleave", function () {
+        this.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+      });
+
+      // Click effect with ripple
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".service-link")) return;
+
+        const ripple = document.createElement("div");
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + "px";
+        ripple.style.left = x + "px";
+        ripple.style.top = y + "px";
+        ripple.classList.add("ripple-effect");
+
+        this.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 1000);
+      });
+
+      // Staggered animation for feature items
+      const featureItems = card.querySelectorAll(".feature-item");
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              featureItems.forEach((item, idx) => {
+                setTimeout(() => {
+                  item.style.animation = `slideInLeft 0.6s ease forwards`;
+                }, idx * 150);
+              });
+              cardObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      cardObserver.observe(card);
+    });
+
+    // Enhanced button interactions
+    const enhancedButtons = document.querySelectorAll(
+      ".btn-primary.enhanced, .btn-secondary.enhanced"
+    );
+    enhancedButtons.forEach((button) => {
+      button.addEventListener("mouseenter", function () {
+        this.style.transform = "translateY(-3px) scale(1.02)";
+      });
+
+      button.addEventListener("mouseleave", function () {
+        this.style.transform = "translateY(0) scale(1)";
+      });
+
+      button.addEventListener("click", function (e) {
+        const ripple = this.querySelector(".btn-ripple");
+        ripple.style.animation = "none";
+        ripple.offsetHeight; // Trigger reflow
+        ripple.style.animation = "buttonRipple 0.6s ease-out";
+      });
+    });
+
+    // Parallax effect for floating shapes
+    let ticking = false;
+
+    function updateParallax() {
+      const scrolled = window.pageYOffset;
+      const shapes = document.querySelectorAll(".shape");
+
+      shapes.forEach((shape, index) => {
+        const speed = 0.1 + index * 0.05;
+        const yPos = -(scrolled * speed);
+        shape.style.transform = `translate3d(0, ${yPos}px, 0)`;
+      });
+
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", requestTick);
+
+    // Service link hover effects
+    const serviceLinks = document.querySelectorAll(".service-link");
+    serviceLinks.forEach((link) => {
+      link.addEventListener("mouseenter", function () {
+        this.style.color = "#3b82f6";
+      });
+
+      link.addEventListener("mouseleave", function () {
+        this.style.color = "var(--primary-black)";
+      });
+    });
+  });
+
+  // Add CSS for ripple effect
+  const style = document.createElement("style");
+  style.textContent = `
+    .ripple-effect {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: ripple 1s ease-out;
+      z-index: 10;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes buttonRipple {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+</script>

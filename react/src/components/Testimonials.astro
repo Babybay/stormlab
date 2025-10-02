@@ -1,0 +1,166 @@
+---
+// Testimonials Section Component
+const testimonials = [
+    {
+        content: "StormLab transformed our online presence completely. Our website traffic increased by 300% and leads by 250% within just 6 months. Their strategic approach and attention to detail is exceptional.",
+        author: "Ahmad Sutrisno",
+        position: "CEO, TechStart Indonesia",
+        initials: "AS"
+    },
+    {
+        content: "Working with StormLab has been a game-changer for our business. Their social media campaigns generated incredible engagement and our sales have doubled. Highly professional team!",
+        author: "Sarah Putri",
+        position: "Marketing Director, Fashion Forward",
+        initials: "SP"
+    },
+    {
+        content: "The ROI from our digital marketing investment with StormLab exceeded all expectations. Their data-driven approach and continuous optimization delivered outstanding results.",
+        author: "Rizky Hartono",
+        position: "Founder, EcommercePro",
+        initials: "RH"
+    }
+];
+---
+
+<section id="testimonials" class="testimonials">
+    <div class="container">
+        <div class="section-header scroll-animate">
+            <div class="section-subtitle">Client Success Stories</div>
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-description">
+                Don't just take our word for it. Here's what our satisfied clients have to say about our digital marketing services.
+            </p>
+        </div>
+        <div class="testimonials-grid">
+            {testimonials.map((testimonial, index) => (
+                <div class="testimonial-card scroll-animate" data-delay={index * 200}>
+                    <div class="testimonial-content">
+                        {testimonial.content}
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">{testimonial.initials}</div>
+                        <div class="author-info">
+                            <h4>{testimonial.author}</h4>
+                            <p>{testimonial.position}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* ================================
+       TESTIMONIALS SECTION STYLES
+    ================================ */
+    .testimonials {
+        padding: 6rem 0;
+        background: var(--pure-white);
+    }
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .testimonial-card {
+        background: var(--light-gray);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-gray);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .testimonial-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--primary-black);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .testimonial-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .testimonial-content {
+        font-style: italic;
+        color: var(--dark-gray);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        position: relative;
+        font-size: 0.95rem;
+    }
+
+    .testimonial-content::before {
+        content: '"';
+        font-size: 4rem;
+        color: rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: -1rem;
+        left: -0.5rem;
+        font-family: serif;
+        line-height: 1;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-black);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--pure-white);
+        font-weight: 600;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        transition: var(--transition);
+    }
+
+    .testimonial-card:hover .author-avatar {
+        transform: scale(1.1);
+    }
+
+    .author-info h4 {
+        font-weight: 600;
+        color: var(--primary-black);
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+    }
+
+    .author-info p {
+        font-size: 0.9rem;
+        color: var(--medium-gray);
+        margin: 0;
+    }
+
+    /* Rating Stars Animation */
+    .testimonial-card::after {
+        content: '⭐⭐⭐⭐⭐';
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 0.8rem;
+        opacity: 0;}

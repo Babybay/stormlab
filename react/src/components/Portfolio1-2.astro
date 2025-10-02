@@ -1,0 +1,1067 @@
+---
+// Portfolio.astro - Minimalist & Modern Portfolio Section
+// Ready for backend integration
+
+// Sample portfolio data - This will be replaced with API/CMS data
+const portfolioItems = [
+  {
+    id: 1,
+    title: "Strategic Planning for Global Tech Startup",
+    category: "Strategic Planning",
+    client: "TechVision Global",
+    year: "2024",
+    image: "/public/Untitled-1-RecoveredArtboard-1 (1).png",
+    tags: ["Strategy", "Planning", "Business"],
+    description: "Comprehensive strategic planning initiative for a rapidly growing tech startup, creating measurable goals and complete business roadmap that resulted in 300% growth trajectory.",
+    challenge: "Developing a scalable strategy that balances aggressive growth targets with sustainable business practices in a competitive market.",
+    result: "Achieved 300% growth target, expanded to 5 new markets, and secured $10M Series A funding.",
+    color: "rgba(147, 51, 234, 0.1)",
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Social Media Revolution for Fashion Brand",
+    category: "Social Media Planning",
+    client: "Urban Fashion Co.",
+    year: "2024",
+    image: "/public/Untitled-1-RecoveredArtboard-5.png",
+    tags: ["Social Media", "Content", "Engagement"],
+    description: "Complete social media strategy overhaul including content planning, influencer partnerships, and community management that transformed brand presence across all platforms.",
+    challenge: "Breaking through social media noise and creating authentic connections with Gen Z audience while maintaining brand sophistication.",
+    result: "500% increase in engagement rate, 2.5M+ new followers, and 85% boost in social commerce sales.",
+    color: "rgba(59, 130, 246, 0.1)",
+    featured: true
+  },
+  {
+    id: 3,
+    title: "SEO Domination for E-Learning Platform",
+    category: "SEO & Content Marketing",
+    client: "LearnHub Academy",
+    year: "2024",
+    image: "/public/Untitled-1-RecoveredArtboard-4.png",
+    tags: ["SEO", "Content", "Marketing"],
+    description: "Data-driven SEO strategy combined with high-quality content marketing that positioned the brand as industry thought leader and drove massive organic traffic growth.",
+    challenge: "Competing with established players in saturated e-learning market while building organic visibility from scratch.",
+    result: "450% increase in organic traffic, #1 rankings for 50+ keywords, and 200% boost in qualified leads.",
+    color: "rgba(16, 185, 129, 0.1)",
+    featured: false
+  },
+  {
+    id: 4,
+    title: "Visual Identity for Sustainable Food Brand",
+    category: "Design and Graphics",
+    client: "GreenBite Foods",
+    year: "2024",
+    image: "/public/Untitled-1-RecoveredArtboard-3.png",
+    tags: ["Design", "Branding", "Graphics"],
+    description: "Complete visual identity system including logo design, packaging, marketing materials, and digital assets that communicate sustainability and premium quality.",
+    challenge: "Creating a visual language that appeals to eco-conscious consumers while conveying premium positioning and standing out on retail shelves.",
+    result: "Award-winning design, 40% increase in brand recall, and successful launch in 500+ retail locations.",
+    color: "rgba(236, 72, 153, 0.1)",
+    featured: false
+  },
+  {
+    id: 5,
+    title: "Data Intelligence for FinTech Company",
+    category: "Analytics & Reporting",
+    client: "SecurePay Solutions",
+    year: "2024",
+    image: "/public/Untitled-1-RecoveredArtboard-1 (1).png",
+    tags: ["Analytics", "Data", "Reporting"],
+    description: "Implementation of comprehensive analytics framework with custom dashboards, automated reporting, and actionable insights that transformed decision-making processes.",
+    challenge: "Building unified analytics system across multiple data sources while ensuring data accuracy and creating actionable insights for various stakeholders.",
+    result: "30% improvement in decision-making speed, 25% cost reduction through optimization, and real-time performance visibility.",
+    color: "rgba(34, 197, 94, 0.1)",
+    featured: false
+  },
+  {
+    id: 6,
+    title: "Strategic Market Entry for Healthcare Tech",
+    category: "Strategic Planning",
+    client: "MediTech Innovations",
+    year: "2023",
+    image: "/public/Untitled-1-RecoveredArtboard-2.png",
+    tags: ["Strategy", "Healthcare", "Expansion"],
+    description: "Strategic market entry plan for healthcare technology company expanding into Southeast Asia, including competitive analysis, partnership strategy, and go-to-market roadmap.",
+    challenge: "Navigating complex healthcare regulations across multiple countries while establishing credibility in new markets with entrenched competitors.",
+    result: "Successful entry into 3 countries, partnerships with 15+ healthcare providers, and $5M revenue in first year.",
+    color: "rgba(251, 146, 60, 0.1)",
+    featured: false
+  }
+];
+
+const categories = ["All Projects", "Strategic Planning", "Social Media Planning", "SEO & Content Marketing", "Design and Graphics", "Analytics & Reporting"];
+---
+
+<style>
+  .portfolio-section {
+    padding: 5rem 0 6rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle Background Pattern */
+  .portfolio-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.02) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.02) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* Header */
+  .portfolio-header {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .portfolio-label {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, #FFBC4C 30%, #134686 70%);
+    border-radius: 50px;
+    font-family: 'Dyson Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: black;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .portfolio-title {
+    font-family: 'Dyson Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--primary-black);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+  }
+
+  .portfolio-description {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+  }
+
+  /* Filter Navigation */
+  .portfolio-filter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.6s forwards;
+  }
+
+  .filter-wrapper {
+    display: inline-flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+
+  .filter-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 0.65rem 1.25rem;
+    border: none;
+    background: transparent;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .filter-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-black);
+    border-radius: 25px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .filter-btn.active::before,
+  .filter-btn:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .filter-btn.active,
+  .filter-btn:hover {
+    color: white;
+  }
+
+  /* Portfolio Grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Portfolio Item Variations */
+  .portfolio-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .portfolio-item.hidden {
+    display: none;
+  }
+
+  /* Featured items span more columns */
+  .portfolio-item.featured {
+    grid-column: span 8;
+  }
+
+  .portfolio-item:not(.featured) {
+    grid-column: span 4;
+  }
+
+  /* Card */
+  .portfolio-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Image Container - Full Card */
+  .card-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .featured .card-image {
+    min-height: 550px;
+  }
+
+  .card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  /* Gradient Overlay for Text Readability */
+  .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    z-index: 1;
+    transition: opacity 0.4s ease;
+  }
+
+  .portfolio-card:hover .card-image::after {
+    opacity: 0.9;
+  }
+
+  /* Featured Badge */
+  .featured-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--primary-black);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Tags */
+  .card-tags {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 3;
+  }
+
+  .tag {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 0.4rem 0.85rem;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-black);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Card Content - Overlaid at Bottom */
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 2rem 2.5rem;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+  }
+
+  .portfolio-card:hover .card-content {
+    transform: translateY(-5px);
+  }
+
+  .card-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .featured .card-title {
+    font-size: 2.25rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-year {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-category::after {
+    content: '•';
+    margin-left: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .card-client {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Modal/Popup */
+  .project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+  }
+
+  .modal-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: 24px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-modal.active .modal-content {
+    transform: scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: var(--primary-black);
+    transform: rotate(90deg);
+  }
+
+  .modal-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .modal-body {
+    padding: 2.5rem;
+  }
+
+  .modal-header-content {
+    margin-bottom: 2rem;
+  }
+
+  .modal-category {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary-black);
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--primary-black);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-client {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .modal-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--dark-gray);
+    margin-bottom: 2.5rem;
+  }
+
+  .modal-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .modal-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .modal-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--medium-gray);
+    margin-bottom: 1rem;
+  }
+
+  .modal-section-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--dark-gray);
+  }
+
+  .modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .modal-tag {
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-black);
+  }
+
+  /* View All Button */
+  .portfolio-footer {
+    text-align: center;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--primary-black);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .view-all-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  .view-all-btn:hover::before {
+    transform: translateX(100%);
+  }
+
+  .view-all-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-arrow {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .view-all-btn:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .portfolio-item.featured,
+    .portfolio-item:not(.featured) {
+      grid-column: span 6;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-section {
+      padding: 4rem 0;
+    }
+
+    .portfolio-header {
+      margin-bottom: 3rem;
+    }
+
+    .portfolio-title {
+      font-size: 2rem;
+    }
+
+    .portfolio-description {
+      font-size: 1rem;
+    }
+
+    .portfolio-filter {
+      margin-bottom: 2rem;
+    }
+
+    .filter-wrapper {
+      padding: 0.4rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .portfolio-grid {
+      gap: 1.5rem;
+    }
+
+    .portfolio-item.featured,
+    .portfolio-item:not(.featured) {
+      grid-column: span 12;
+    }
+
+    .card-image {
+      min-height: 400px;
+    }
+
+    .featured .card-image {
+      min-height: 450px;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    .featured .card-title {
+      font-size: 1.75rem;
+    }
+
+    .modal-container {
+      padding: 1rem;
+    }
+
+    .modal-image {
+      height: 250px;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.75rem;
+    }
+
+    .modal-description {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .portfolio-footer {
+      margin-top: 3rem;
+    }
+
+    .view-all-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .modal-close {
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<section class="portfolio-section" id="portfolio">
+  <div class="container">
+    <!-- Header -->
+    <div class="portfolio-header">
+      <span class="portfolio-label">Our Work</span>
+      <h2 class="portfolio-title">selected projects</h2>
+      <p class="portfolio-description">
+        Explore our portfolio of successful campaigns and digital transformations that have helped brands achieve remarkable growth.
+      </p>
+    </div>
+
+    <!-- Filter -->
+    <div class="portfolio-filter">
+      <div class="filter-wrapper">
+        {categories.map((category, index) => (
+          <button 
+            class={`filter-btn ${index === 0 ? 'active' : ''}`}
+            data-filter={category === 'All Projects' ? 'all' : category.toLowerCase().replace(/\s+/g, '-')}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+      {portfolioItems.map((item, index) => (
+        <div 
+          class={`portfolio-item ${item.featured ? 'featured' : ''}`}
+          data-category={item.category.toLowerCase().replace(/\s+/g, '-')}
+          data-id={item.id}
+          style={`--card-color: ${item.color}`}
+        >
+          <article class="portfolio-card">
+            <!-- Image -->
+            <div class="card-image">
+              <img src={item.image} alt={item.title} loading="lazy" />
+              <div class="card-accent"></div>
+              
+              {item.featured && (
+                <div class="featured-badge">Featured</div>
+              )}
+              
+              <div class="card-tags">
+                {item.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="card-content">
+              <div class="card-meta">
+                <span class="card-category">{item.category}</span>
+                <span class="card-year">{item.year}</span>
+              </div>
+
+              <h3 class="card-title">{item.title}</h3>
+              <p class="card-client">{item.client}</p>
+            </div>
+          </article>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footer -->
+    <div class="portfolio-footer">
+      <button class="view-all-btn">
+        <span>View All Projects</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div class="project-modal" id="projectModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+
+        <img class="modal-image" id="modalImage" src="" alt="" />
+
+        <div class="modal-body">
+          <div class="modal-header-content">
+            <span class="modal-category" id="modalCategory"></span>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-client" id="modalClient"></p>
+          </div>
+
+          <p class="modal-description" id="modalDescription"></p>
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Challenge</h3>
+            <p class="modal-section-content" id="modalChallenge"></p>
+          </div>
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Result</h3>
+            <p class="modal-section-content" id="modalResult"></p>
+          </div>
+
+          <div class="modal-section">
+            <h3 class="modal-section-title">Tags</h3>
+            <div class="modal-tags" id="modalTags"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ portfolioItems }}>
+  // Portfolio Filter Functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItemsElements = document.querySelectorAll('.portfolio-item');
+    const modal = document.getElementById('projectModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter items with animation
+        portfolioItemsElements.forEach((item, index) => {
+          const category = item.dataset.category;
+          
+          item.classList.remove('animate');
+          
+          if (filter === 'all' || category === filter) {
+            item.classList.remove('hidden');
+            setTimeout(() => {
+              item.classList.add('animate');
+            }, index * 50);
+          } else {
+            setTimeout(() => {
+              item.classList.add('hidden');
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate');
+          }, index * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    portfolioItemsElements.forEach(item => {
+      observer.observe(item);
+    });
+
+    // Open modal function
+    function openModal(projectId) {
+      const project = portfolioItems.find(p => p.id === parseInt(projectId));
+      if (!project) return;
+
+      // Populate modal content
+      document.getElementById('modalImage').src = project.image;
+      document.getElementById('modalImage').alt = project.title;
+      document.getElementById('modalCategory').textContent = project.category;
+      document.getElementById('modalTitle').textContent = project.title;
+      document.getElementById('modalClient').textContent = project.client + ' • ' + project.year;
+      document.getElementById('modalDescription').textContent = project.description;
+      document.getElementById('modalChallenge').textContent = project.challenge;
+      document.getElementById('modalResult').textContent = project.result;
+
+      // Populate tags
+      const tagsContainer = document.getElementById('modalTags');
+      tagsContainer.innerHTML = project.tags.map(tag => 
+        `<span class="modal-tag">${tag}</span>`
+      ).join('');
+
+      // Show modal
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close modal function
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Portfolio item click handler
+    portfolioItemsElements.forEach(item => {
+      item.addEventListener('click', () => {
+        const projectId = item.dataset.id;
+        openModal(projectId);
+      });
+    });
+
+    // Close modal handlers
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+
+    // ESC key to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // View All button
+    const viewAllBtn = document.querySelector('.view-all-btn');
+    if (viewAllBtn) {
+      viewAllBtn.addEventListener('click', () => {
+        console.log('View all projects');
+        // Add your navigation logic here
+        // window.location.href = '/portfolio';
+      });
+    }
+  });
+
+  // Smooth scroll for hash links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>
+
+<!-- 
+BACKEND INTEGRATION NOTES:
+========================
+
+1. Data Structure for API/CMS:
+   - Create a Portfolio model with fields:
+     * id (unique identifier)
+     * title (string)
+     * category (string/enum)
+     * client (string)
+     * year (number)
+     * image (url/file)
+     * tags (array of strings)
+     * description (text)
+     * challenge (text)
+     * result (text)
+     * color (hex/rgba color)
+     * featured (boolean)
+     * createdAt, updatedAt (timestamps)
+
+2. API Endpoints needed:
+   GET /api/portfolio - Get all portfolio items (with pagination)
+   GET /api/portfolio/:id - Get single portfolio item
+   GET /api/portfolio/categories - Get all categories
+   GET /api/portfolio/featured - Get featured items only
+   POST /api/portfolio - Create new portfolio item (admin)
+   PUT /api/portfolio/:id - Update portfolio item (admin)
+   DELETE /api/portfolio/:id - Delete portfolio item (admin)
+
+3. Replace the portfolioItems array with:
+   const response = await fetch('/api/portfolio');
+   const portfolioItems = await response.json();
+
+4. Add loading states and error handling
+5. Implement image upload/management system
+6. Add search and advanced filtering
+7. Consider pagination or infinite scroll for large portfolios
+-->

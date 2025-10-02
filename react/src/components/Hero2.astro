@@ -1,0 +1,359 @@
+---
+// Hero.astro
+---
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 5rem;
+  }
+
+  /* .hero-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-3xl);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  } */
+
+  .hero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: var(--space-3xl); */
+    margin-top: 5rem;
+    padding-bottom: var(--space-lg);
+  }
+
+  .hero-main {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--primary-black);
+    line-height: 1.1;
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.03em;
+    padding-top: 2.5rem;
+  }
+
+  .user-tags {
+    display: inline-flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .user-tag {
+    background: #3b82f6;
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    animation: floatAnimation 3s ease-in-out infinite;
+  }
+
+  .user-tag:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .user-tag:nth-child(2) {
+    background: #10b981;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    animation-delay: 1s;
+  }
+
+  .cards-container {
+    position: relative;
+    height: 300px;
+    margin: var(--space-2xl) 0;
+    perspective: 1000px;
+  }
+
+  .card {
+    position: absolute;
+    width: 220px;
+    height: 300px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+    z-index: 10 !important;
+  }
+
+  .card-1 {
+    left: 5%;
+    top: 20px;
+    transform: rotate(-8deg);
+    z-index: 1;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  }
+
+  .card-2 {
+    left: 18%;
+    top: 0;
+    transform: rotate(-4deg);
+    z-index: 2;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  }
+
+  .card-3 {
+    left: 32%;
+    top: 10px;
+    transform: rotate(2deg);
+    z-index: 3;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  }
+
+  .card-4 {
+    right: 32%;
+    top: 0;
+    transform: rotate(-2deg);
+    z-index: 4;
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  }
+
+  .card-5 {
+    right: 18%;
+    top: 15px;
+    transform: rotate(6deg);
+    z-index: 5;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  }
+
+  .card-6 {
+    right: 5%;
+    top: 25px;
+    transform: rotate(10deg);
+    z-index: 6;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .card-content {
+    padding: var(--space-lg);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .hero-description {
+    font-size: var(--font-lg);
+    color: var(--medium-gray);
+    margin-bottom: var(--space-2xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-hero-primary {
+    background: var(--primary-black);
+    color: var(--pure-white);
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--font-base);
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-hero-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-hero-secondary {
+    background: transparent;
+    color: var(--primary-black);
+    padding: var(--space-lg) var(--space-2xl);
+    border: none;
+    font-weight: 600;
+    font-size: var(--font-base);
+    transition: var(--transition);
+    cursor: pointer;
+  }
+
+  .btn-hero-secondary:hover {
+    color: var(--medium-gray);
+  }
+
+  @media (max-width: 1024px) {
+    .nav {
+      gap: var(--space-md);
+    }
+
+    .cards-container {
+      height: 250px;
+    }
+
+    .card {
+      width: 180px;
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-header {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .nav {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cards-container {
+      height: 200px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .card {
+      width: 150px;
+      height: 200px;
+    }
+
+    .card-1 { left: 2%; }
+    .card-2 { left: 15%; }
+    .card-3 { left: 28%; }
+    .card-4 { right: 28%; }
+    .card-5 { right: 15%; }
+    .card-6 { right: 2%; }
+
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-content {
+      padding: var(--space-xl);
+    }
+
+    .nav a {
+      font-size: var(--font-xs);
+    }
+
+    .user-tags {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+</style>
+
+<section class="hero scroll-animate">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Main Hero Content -->
+      <div class="hero-main">
+        <h1 class="hero-title">
+          A place to display your masterpiece.
+        </h1>
+
+        <!-- Cards Display -->
+        <div class="cards-container">
+          <div class="card card-1">
+            <div class="card-content">Design 1</div>
+          </div>
+          <div class="card card-2">
+            <div class="card-content">Creative</div>
+          </div>
+          <div class="card card-3">
+            <div class="card-content">Portfolio</div>
+          </div>
+          <div class="card card-4">
+            <div class="card-content">Artwork</div>
+          </div>
+          <div class="card card-5">
+            <div class="card-content">Gallery</div>
+          </div>
+          <div class="card card-6">
+            <div class="card-content">Studio</div>
+          </div>
+        </div>
+
+        <p class="hero-description">
+          Artists can display their masterpieces, and buyers can discover and purchase works that resonate with them.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll animation observer
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.scroll-animate').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Add interactive card animation
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((card, index) => {
+    card.addEventListener('mouseenter', () => {
+      cards.forEach((c, i) => {
+        if (i !== index) {
+          c.style.filter = 'brightness(0.7)';
+        }
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      cards.forEach(c => {
+        c.style.filter = 'brightness(1)';
+      });
+    });
+  });
+</script>
