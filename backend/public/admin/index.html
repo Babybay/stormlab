@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StormLab Admin - Portfolio Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1>StormLab Admin</h1>
+            <p class="subtitle">Portfolio Management System</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="admin@stormlab.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Login</button>
+                
+                <div id="loginError" class="error-message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h1>Portfolio Management</h1>
+            <div class="header-actions">
+                <span id="adminName" class="admin-name"></span>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <!-- Actions Bar -->
+        <div class="actions-bar">
+            <button id="addNewBtn" class="btn btn-primary">+ Add New Portfolio</button>
+            <div class="filter-group">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="Strategic Planning">Strategic Planning</option>
+                    <option value="Social Media Planning">Social Media Planning</option>
+                    <option value="SEO & Content Marketing">SEO & Content Marketing</option>
+                    <option value="Design and Graphics">Design and Graphics</option>
+                    <option value="Analytics & Reporting">Analytics & Reporting</option>
+                </select>
+                <select id="statusFilter" class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Portfolio Table -->
+        <div class="table-container">
+            <table id="portfolioTable" class="portfolio-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Client</th>
+                        <th>Category</th>
+                        <th>Year</th>
+                        <th>Status</th>
+                        <th>Featured</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="portfolioTableBody">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+            
+            <div id="emptyState" class="empty-state hidden">
+                <p>No portfolio items found</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form -->
+    <div id="portfolioModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Portfolio</h2>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            
+            <form id="portfolioForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formTitle">Title *</label>
+                        <input type="text" id="formTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formClient">Client *</label>
+                        <input type="text" id="formClient" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formCategory">Category *</label>
+                        <select id="formCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Strategic Planning">Strategic Planning</option>
+                            <option value="Social Media Planning">Social Media Planning</option>
+                            <option value="SEO & Content Marketing">SEO & Content Marketing</option>
+                            <option value="Design and Graphics">Design and Graphics</option>
+                            <option value="Analytics & Reporting">Analytics & Reporting</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formYear">Year *</label>
+                        <input type="number" id="formYear" min="2020" max="2030" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="formTags">Tags (comma separated)</label>
+                    <input type="text" id="formTags" placeholder="Strategy, Planning, Business">
+                </div>
+                
+                <div class="form-group">
+                    <label for="formDescription">Description *</label>
+                    <textarea id="formDescription" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="formChallenge">Challenge</label>
+                    <textarea id="formChallenge" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="formResult">Result</label>
+                    <textarea id="formResult" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formColor">Card Color</label>
+                        <input type="text" id="formColor" placeholder="rgba(147, 51, 234, 0.1)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formStatus">Status *</label>
+                        <select id="formStatus" required>
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="formFeatured">
+                        Featured Project
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="formImage">Image</label>
+                    <input type="file" id="formImage" accept="image/*">
+                    <div id="currentImage" class="current-image hidden">
+                        <img id="currentImagePreview" src="" alt="Current">
+                        <span>Current Image</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Portfolio</button>
+                </div>
+                
+                <div id="formError" class="error-message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
