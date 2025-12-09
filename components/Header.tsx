@@ -162,7 +162,7 @@ export default function Header() {
               <div className="w-[41.6667%] ml-[16.6667%] px-[16.3333px]">
                 <nav>
                   <ul className="flex justify-end space-x-[30px]">
-                    {['Work', 'Company', 'Blog', 'Contact'].map((item) => (
+                    {['Work', 'About', 'Blog', 'Contact'].map((item) => (
                       <li key={item} className="items-center flex text-left">
                         <Link to={`/${item.toLowerCase()}`} className="block relative overflow-hidden h-[20px] group/nav text-[15px] tracking-[-0.52px]">
                           <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/nav:-translate-y-1/2">
