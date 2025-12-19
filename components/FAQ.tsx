@@ -106,7 +106,7 @@ const FAQ = () => {
 
                 {/* Right: Accordion */}
                 <div className="lg:col-span-8">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col white">
                         {faqs.map((faq) => (
                             <FAQItem
                                 key={faq.id}

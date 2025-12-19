@@ -4,7 +4,9 @@ import StudioStatement from '../components/StudioStatement';
 import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
 import Clients from '../components/Clients';
+// import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
+import Testimonials from '../components/Testimonials';
 
 const expertises = [
     {
@@ -74,7 +76,7 @@ export default function Home() {
             {expertises.map((expertise, index) => (
                 <section
                     key={expertise.id}
-                    className="sticky top-0 w-full min-h-screen overflow-hidden bg-white border-t border-agency-black/5"
+                    className="sticky top-0 w-full min-h-screen overflow-hidden bg-[#e0e5ec] border-t border-white/40"
                     style={{ zIndex: 30 + index }} // Explicit stacking order: 30, 31, 32...
                 >
                     <ExpertiseSection
@@ -93,6 +95,7 @@ export default function Home() {
             <section className="relative w-full min-h-screen bg-agency-black shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" style={{ zIndex: 30 + expertises.length + 1 }}>
                 <Capabilities />
                 <Clients />
+                <Testimonials />
                 <FAQ />
             </section>
         </main>

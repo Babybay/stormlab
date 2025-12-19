@@ -70,10 +70,10 @@ export default function ExpertiseSection({ id, number, title, description, link,
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id={id} className="-mt-px relative bg-white min-h-[calc(100vh-60px)] border-b border-agency-black/5 z-[1]">
+    <section ref={sectionRef} id={id} className="-mt-px relative bg-[#e0e5ec] min-h-[calc(100vh-60px)] border-b border-white/40 z-[1]">
       <div className="flex flex-col h-full min-h-[calc(100vh-60px)]">
         {/* Sticky Header within the section */}
-        <div className="sticky top-[40.83px] z-[20] bg-white border-t border-agency-black/10 py-[13.88px]">
+        <div className="sticky top-[40.83px] z-[20] bg-[#e0e5ec] border-t border-white/40 py-[13.88px]">
           <div className="ml-auto mr-auto max-w-[1320px] px-[65.33px]">
           </div>
         </div>
@@ -83,16 +83,16 @@ export default function ExpertiseSection({ id, number, title, description, link,
 
           {/* Sticky Description Row */}
           <div className="sticky top-[70px] z-[10] flex flex-wrap -mx-[16.33px] pt-[40.83px] pb-[20.41px] pointer-events-none">
-            <div className="w-full md:w-[50%] md:ml-[25%] px-[16.33px] order-1 pointer-events-auto mb-8 md:mb-0">
+            <div className="w-full md:w-[50%] md:ml-[25%] px-[16.33px] order-1 pointer-events-auto mb-8 md:mb-0 text-agency-black">
               <h2 className="font-medium text-[32px] md:text-[42px] leading-[1.1] pb-[20px] md:pb-[34.7px]">{title}</h2>
-              <p className="max-w-[385px] text-[16px] leading-relaxed">{description}</p>
+              <p className="max-w-[385px] text-[16px] leading-relaxed text-agency-black/60">{description}</p>
             </div>
             <div className="w-full md:w-[25%] px-[16.33px] pointer-events-auto mb-8 md:mb-0">
               <div className="flex items-center group cursor-pointer">
-                <div className="w-[40px] h-[40px] mr-[14.29px] bg-agency-black text-white rounded-full flex items-center justify-center text-[16px] font-medium">
+                <div className="w-[40px] h-[40px] mr-[14.29px] bg-[#e0e5ec] text-storm-lime border border-storm-lime rounded-full flex items-center justify-center text-[16px] font-medium shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff]">
                   {number}
                 </div>
-                <a href={link} className="h-[40px] px-[20px] bg-agency-black/5 rounded-full flex items-center text-[14px] group-hover:bg-agency-black group-hover:text-white transition-colors duration-300">
+                <a href={link} className="h-[40px] px-[20px] bg-[#e0e5ec] border border-white rounded-full flex items-center text-[14px] text-agency-black hover:text-storm-lime hover:border-storm-lime transition-all duration-300 shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff]">
                   Learn More
                 </a>
               </div>
@@ -105,9 +105,9 @@ export default function ExpertiseSection({ id, number, title, description, link,
             <div className="w-full h-[15px]"></div>
             {projects.map((project, idx) => (
               <div key={idx} className="project-item w-full md:w-[50%] px-[16.33px] mt-[40px] md:mt-0 pb-4">
-                {/* Bg white on items to ensure cover */}
-                <div className="relative group cursor-pointer bg-white">
-                  <a href={project.url} className="block overflow-hidden relative w-full aspect-[2/1]">
+                {/* Bg light on items to ensure cover */}
+                <div className="relative group cursor-pointer bg-[#e0e5ec] border border-white/40 rounded-[30px] p-4 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)] hover:shadow-[12px_12px_24px_rgb(163,177,198,0.6),-12px_-12px_24px_rgba(255,255,255,0.5)] transition-all duration-300">
+                  <a href={project.url} className="block overflow-hidden relative w-full aspect-[2/1] rounded-[20px]">
                     <div className="size-full overflow-hidden">
                       <img
                         src={project.image}
@@ -117,17 +117,17 @@ export default function ExpertiseSection({ id, number, title, description, link,
                     </div>
                     {/* Hover Overlay Button */}
                     <div className="absolute right-[32px] bottom-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      <div className="w-[24.5px] h-[24.5px] bg-agency-black rounded-full flex items-center justify-center text-white">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <div className="w-[40px] h-[40px] bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-storm-lime shadow-lg">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="5" y1="12" x2="19" y2="12"></line>
                           <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                       </div>
                     </div>
                   </a>
-                  <div className="mt-[14.7px] bg-white">
-                    <p className="mb-[8px] text-[14.24px] font-medium">{project.name}</p>
-                    <p className="text-agency-black/50 text-[14.24px]">{project.category}</p>
+                  <div className="mt-[20px] px-2">
+                    <p className="mb-[8px] text-[18px] font-medium text-agency-black group-hover:text-storm-lime transition-colors">{project.name}</p>
+                    <p className="text-agency-black/50 text-[14px]">{project.category}</p>
                   </div>
                 </div>
               </div>
