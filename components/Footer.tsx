@@ -6,6 +6,12 @@ import { useGSAP } from '@gsap/react';
 
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [socials, setSocials] = React.useState([
+    { name: 'Instagram', href: 'https://instagram.com/stormlab.creative' },
+    // { name: 'Twitter/X', href: '#' },
+    // { name: 'LinkedIn', href: '#' },
+    { name: 'Email', href: 'mailto:stormlab.creative@gmail.com' }
+  ]);
 
   useGSAP(() => {
     // 1. Link Stagger
@@ -23,6 +29,16 @@ export default function Footer() {
     });
 
   }, { scope: containerRef });
+
+  React.useEffect(() => {
+    import('../lib/sanity').then(({ client }) => {
+      client.fetch(`*[_type == "globals"][0]`).then((data) => {
+        if (data && data.socials) {
+          setSocials(data.socials.map((s: any) => ({ name: s.name, href: s.url })));
+        }
+      }).catch(err => console.error("Sanity footer fetch error", err));
+    });
+  }, []);
 
   return (
     <footer ref={containerRef} className="relative bg-white pt-[60px] flex flex-col justify-between overflow-hidden z-10 border-t border-agency-black/10">
@@ -58,12 +74,7 @@ export default function Footer() {
           <div className="footer-link-group w-1/2 sm:w-1/4 md:w-auto order-3 md:order-3 mb-8 md:mb-0">
             <h4 className="text-[12px] uppercase tracking-wider text-agency-black/40 mb-4">Connect</h4>
             <ul className="space-y-2">
-              {[
-                { name: 'Instagram', href: 'https://instagram.com/stormlab.creative' },
-                // { name: 'Twitter/X', href: '#' },
-                // { name: 'LinkedIn', href: '#' },
-                { name: 'Email', href: 'mailto:stormlab.creative@gmail.com' }
-              ].map((item) => (
+              {socials.map((item) => (
                 <li key={item.name}>
                   <a
                     href={item.href}

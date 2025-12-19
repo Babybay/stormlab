@@ -12,7 +12,9 @@ import CookieConsent from './components/CookieConsent';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Work from './pages/Work';
+import ProjectDetail from './pages/ProjectDetail';
 import Blog from './pages/Blog';
+import PostDetail from './pages/PostDetail';
 import Contact from './pages/Contact';
 import About from './pages/About';
 
@@ -70,8 +72,10 @@ export default function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/services" element={<Services />} />
                             <Route path="/work" element={<Work />} />
+                            <Route path="/work/:slug" element={<ProjectDetail />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/blog" element={<Blog />} />
+                            <Route path="/blog/:slug" element={<PostDetail />} />
                             <Route path="/contact" element={<Contact />} />
                             {/* Fallback */}
                             <Route path="*" element={<Home />} />
