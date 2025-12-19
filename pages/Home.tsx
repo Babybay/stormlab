@@ -5,7 +5,6 @@ import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
 import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
-import ProcessCarousel from '../components/ProcessCarousel';
 
 const expertises = [
     {
