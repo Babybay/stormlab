@@ -1,81 +1,148 @@
+
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ArrowUpRight, Sparkles, MapPin, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Light Neumorphic Card
+const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+    <div className={`bg-[#e0e5ec] rounded-[30px] p-8 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)] border border-white/40 ${className}`}>
+        {children}
+    </div>
+);
 
 export default function About() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        const tl = gsap.timeline({
-            defaults: { ease: "power3.out" }
-        });
-
-        tl.from(".bento-tile", {
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1
+        gsap.utils.toArray<HTMLElement>('.grid-item').forEach((item, i) => {
+            gsap.from(item, {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%"
+                }
+            });
         });
     }, { scope: containerRef });
 
     return (
-        <main ref={containerRef} className="min-h-screen bg-agency-black pt-[120px] pb-[80px]">
-            <div className="max-w-[1320px] mx-auto px-[20px] md:px-[65px]">
+        <main ref={containerRef} className="min-h-screen bg-[#e0e5ec] font-sans selection:bg-storm-lime selection:text-black pb-32">
 
-                {/* Header */}
-                <div className="mb-16 max-w-3xl">
-                    <h1 className="text-white text-[60px] md:text-[80px] font-medium leading-[0.9] tracking-tight mb-8">
-                        Redefining <span className="text-storm-lime">Digital.</span>
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 pt-16 relative z-10">
+
+                {/* Header (Minimal, No numbers) */}
+                <header className="mb-24 md:mb-32 text-center max-w-4xl mx-auto">
+                    <h1 className="text-6xl md:text-9xl font-display font-black text-gray-800 tracking-tighter mb-8 uppercase leading-[0.85]">
+                        Who We <br /><span className="text-transparent bg-clip-text bg-gradient-to-br from-storm-lime to-emerald-600">Are.</span>
                     </h1>
-                    <p className="text-white/60 text-xl font-light leading-relaxed">
-                        We are a new breed of agency. Agile, hungry, and obsessed with results. We are here to help you make your mark.
+                    <p className="text-gray-500 text-xl font-light leading-relaxed">
+                        A multidisciplinary collective defining the new standard of digital interaction.
                     </p>
-                </div>
+                </header>
 
-                {/* Bento Grid (Simplified for New Agency) */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
+                {/* THE GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
 
-                    {/* 1. Value / Philosophy (Large) */}
-                    <div className="bento-tile col-span-1 md:col-span-2 row-span-1 rounded-[32px] bg-[#1A1A1A] border border-white/5 p-8 md:p-12 hover:border-storm-lime transition-colors duration-500 group flex flex-col justify-between">
-                        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <Sparkles className="text-storm-lime w-6 h-6" />
-                        </div>
-                        <div>
-                            <h3 className="text-white text-3xl font-medium mb-4">Creative Chaos.</h3>
-                            <p className="text-white/50 leading-relaxed font-light text-lg">
-                                We believe that true innovation comes from the edge of chaos. We blend rigorous strategy with bold creativity to find solutions that bigger agencies miss.
+                    {/* Item 1: Origin (Wide) */}
+                    <Link to="/contact" className="grid-item md:col-span-2 group">
+                        <Card className="h-full flex flex-col justify-between transition-all hover:bg-[#e6ebf2] hover:-translate-y-1">
+                            <div>
+                                <h3 className="text-3xl font-display font-bold text-gray-800 mb-6 group-hover:text-storm-lime transition-colors">The Origin</h3>
+                                <p className="text-gray-600 text-lg leading-relaxed max-w-2xl">
+                                    StormLab was born from a simple observation: the web has become boring. We set out to build an agency that rejects templates and embraces the chaotic energy of true innovation. Based in Bali, serving the globe.
+                                </p>
+                            </div>
+                            <div className="mt-12 flex justify-end">
+                                <div className="w-12 h-12 rounded-full bg-[#e0e5ec] shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff] flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gray-600 group-hover:text-storm-lime" strokeWidth="2">
+                                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </Card>
+                    </Link>
+
+                    {/* Item 2: Stats (Tall) */}
+                    <div className="grid-item md:row-span-2">
+                        <Card className="h-full flex flex-col items-center justify-center text-center">
+                            <div className="mb-12">
+                                <span className="block text-7xl font-display font-black text-gray-800 mb-2">25+</span>
+                                <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">Global Partners</span>
+                            </div>
+                            <div>
+                                <span className="block text-7xl font-display font-black text-gray-800 mb-2">100%</span>
+                                <span className="text-gray-500 text-xs font-bold uppercase tracking-widest">Success Rate</span>
+                            </div>
+                        </Card>
+                    </div>
+
+                    {/* Item 3: Philosophy */}
+                    <div className="grid-item">
+                        <Card className="h-full">
+                            <h3 className="text-2xl font-display font-bold text-gray-800 mb-4">Philosophy</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                We believe in "Subtractive Design". We remove the noise until only the essential signal remains. Every pixel must earn its place.
                             </p>
-                        </div>
+                        </Card>
                     </div>
 
-                    {/* 2. Location (Requested) */}
-                    <div className="bento-tile col-span-1 row-span-1 rounded-[32px] bg-[#333] p-8 flex flex-col justify-between group hover:bg-[#444] transition-colors duration-300">
-                        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-6">
-                            <MapPin className="text-white w-6 h-6" />
-                        </div>
-                        <div>
-                            <h4 className="text-white text-2xl font-medium mb-2">Jakarta, ID</h4>
-                            <p className="text-white/60">Headquarters</p>
-                            <div className="mt-8 w-full h-[1px] bg-white/10"></div>
-                            <p className="text-storm-lime mt-4 text-sm font-mono uppercase tracking-widest">Open for Business</p>
-                        </div>
-                    </div>
-
-                    {/* 3. Call to Action (New Client Focus) */}
-                    <div className="bento-tile col-span-1 md:col-span-3 row-span-1 rounded-[32px] bg-gradient-to-r from-storm-lime to-lime-400 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between group">
-                        <div className="mb-6 md:mb-0">
-                            <h3 className="text-agency-black text-3xl md:text-5xl font-medium mb-4">Ready to Launch?</h3>
-                            <p className="text-agency-black/80 text-xl max-w-xl">
-                                We are looking for our next partner. Let's build something extraordinary together.
+                    {/* Item 4: Method */}
+                    <div className="grid-item">
+                        <Card className="h-full">
+                            <h3 className="text-2xl font-display font-bold text-gray-800 mb-4">Method</h3>
+                            <p className="text-gray-600 leading-relaxed">
+                                Strategy first. Code second. We don't write a single line of code until we clearly understand the problem we are solving.
                             </p>
-                        </div>
-                        <Link to="/contact" className="w-full md:w-auto bg-agency-black text-white px-8 py-4 rounded-full flex items-center justify-center gap-3 hover:scale-105 transition-transform duration-300">
-                            <span className="font-mono uppercase tracking-widest text-sm">Start a Project</span>
-                            <ArrowUpRight className="w-4 h-4" />
-                        </Link>
+                        </Card>
                     </div>
+
+                    {/* Item 5: Divider / Visual */}
+                    <div className="grid-item md:col-span-3">
+                        <Card className="flex items-center justify-center py-24 overflow-hidden relative">
+                            <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
+                                <span className="text-[20vw] font-display font-black">STORM</span>
+                            </div>
+                            <p className="text-2xl md:text-4xl text-center font-bold text-gray-700 max-w-3xl relative z-10 leading-tight">
+                                "We don't just build websites. We build <span className="text-storm-lime">digital empires</span>."
+                            </p>
+                        </Card>
+                    </div>
+
+                    {/* Item 6: Team/Culture */}
+                    <div className="grid-item md:col-span-2">
+                        <Card className="h-full">
+                            <h3 className="text-3xl font-display font-bold text-gray-800 mb-6">The Collective</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <h4 className="font-bold text-gray-800">Designers</h4>
+                                    <p className="text-sm text-gray-500">Obsessed with aesthetics and user flow.</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-gray-800">Engineers</h4>
+                                    <p className="text-sm text-gray-500">Architects of robust, scalable systems.</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-gray-800">Strategists</h4>
+                                    <p className="text-sm text-gray-500">Planning the path to market dominance.</p>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+
+                    {/* Item 7: CTA */}
+                    <Link to="/contact" className="grid-item group">
+                        <Card className="h-full bg-storm-lime shadow-[9px_9px_16px_rgba(163,177,198,0.5),-9px_-9px_16px_rgba(255,255,255,0.8)] border-transparent flex flex-col items-center justify-center text-center transition-transform hover:scale-95 text-agency-black">
+                            <span className="text-2xl font-bold uppercase tracking-widest mb-2">Join Us</span>
+                            <span className="text-xs font-mono opacity-60">Start Your Project →</span>
+                        </Card>
+                    </Link>
 
                 </div>
             </div>

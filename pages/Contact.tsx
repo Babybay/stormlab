@@ -1,6 +1,8 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { Link } from 'react-router-dom';
 
 const steps = [
     {
@@ -45,7 +47,7 @@ const steps = [
     }
 ];
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzznaagy"; // [!IMPORTANT] Replace with your Formspree ID
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzznaagy";
 
 export default function Contact() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -65,8 +67,8 @@ export default function Contact() {
 
         const ctx = gsap.context(() => {
             gsap.fromTo(".step-anim",
-                { y: 30, opacity: 0, filter: "blur(10px)" },
-                { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, stagger: 0.1, ease: "power2.out" }
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }
             );
 
             gsap.to(".progress-track", {
@@ -96,7 +98,7 @@ export default function Contact() {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!value || !emailRegex.test(value)) {
                     isValid = false;
-                    errorMessage = 'Please enter a valid email address (e.g. name@domain.com).';
+                    errorMessage = 'Please enter a valid email address.';
                 }
                 break;
             case 'project':
@@ -120,7 +122,7 @@ export default function Contact() {
 
         if (!isValid) {
             setError(errorMessage);
-            gsap.to(".input-container", { keyframes: { x: [-10, 10, -10, 10, 0] }, duration: 0.4 });
+            gsap.to(".input-container", { keyframes: { x: [-5, 5, -5, 5, 0] }, duration: 0.3 });
             return false;
         }
 
@@ -133,9 +135,7 @@ export default function Contact() {
         try {
             const response = await fetch(FORMSPREE_ENDPOINT, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
@@ -146,11 +146,10 @@ export default function Contact() {
             }
         } catch (err) {
             console.error(err);
-            // Fallback: Open Mailto
             const subject = `New Project Inquiry from ${formData.name}`;
             const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AProject: ${formData.project}%0D%0ABudget: ${formData.budget}`;
-            window.location.href = `mailto:hello@stormlab.agency?subject=${subject}&body=${body}`; // Replace with your email
-            setIsCompleted(true); // Still show success to not frustrate user
+            window.location.href = `mailto:hello@stormlab.agency?subject=${subject}&body=${body}`;
+            setIsCompleted(true);
         } finally {
             setIsSubmitting(false);
         }
@@ -158,7 +157,6 @@ export default function Contact() {
 
     const handleNext = () => {
         if (!validate()) return;
-
         if (currentStep < steps.length - 1) {
             setCurrentStep(prev => prev + 1);
         } else {
@@ -179,20 +177,20 @@ export default function Contact() {
 
     if (isCompleted) {
         return (
-            <div className="min-h-screen bg-white flex flex-col items-center justify-center p-8 text-center">
-                <h1 className="text-agency-black text-[40px] md:text-[60px] font-medium tracking-tight mb-6">
-                    Thank you, {formData.name}.
-                </h1>
-                <p className="text-agency-black/60 text-lg md:text-xl font-light max-w-xl">
-                    We have received your details. Our team will review your project and get back to you within 24 hours.
-                </p>
-                <div className="mt-12">
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="text-agency-black text-sm uppercase tracking-widest hover:text-storm-lime transition-colors border-b border-agency-black hover:border-storm-lime pb-1"
+            <div className="min-h-screen bg-[#121212] flex flex-col items-center justify-center p-8 text-center text-white">
+                <div className="p-12 rounded-[40px] bg-[#121212] shadow-[20px_20px_60px_#050505,-20px_-20px_60px_#1f1f1f]">
+                    <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-storm-lime">
+                        Received.
+                    </h1>
+                    <p className="text-white/60 text-lg font-light max-w-xl mb-12">
+                        Stand by. We are analyzing your request and will establish contact within 24 hours.
+                    </p>
+                    <Link
+                        to="/"
+                        className="inline-block px-8 py-4 rounded-full bg-[#121212] text-white font-bold uppercase tracking-widest text-sm shadow-[5px_5px_10px_#050505,-5px_-5px_10px_#1f1f1f] hover:shadow-[inset_3px_3px_6px_#050505,inset_-3px_-3px_6px_#1f1f1f] transition-all"
                     >
-                        Back to Home
-                    </button>
+                        Return to Base
+                    </Link>
                 </div>
             </div>
         );
@@ -201,29 +199,26 @@ export default function Contact() {
     const step = steps[currentStep];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-white flex flex-col pt-[120px] pb-[40px] px-[20px] md:px-[65px] relative">
-            {/* Minimal Header */}
-            <div className="absolute top-[40px] left-[20px] md:left-[65px] flex items-center gap-4">
-                <span className="text-agency-black/30 text-xs font-mono tracking-widest uppercase">
-                    Start a Project
-                </span>
-            </div>
+        <div ref={containerRef} className="min-h-screen bg-[#121212] flex flex-col pt-[120px] pb-[40px] px-[20px] md:px-[65px] relative font-sans">
 
-            {/* Progress Indicator */}
-            <div className="absolute top-[120px] left-[20px] md:left-[65px] right-[20px] md:right-[65px] h-[1px] bg-agency-black/10">
-                <div className="progress-track h-full bg-storm-lime w-0 shadow-[0_0_15px_rgba(204,255,0,0.3)]"></div>
+            {/* Progress Bar Container (Inset Shadow) */}
+            <div className="absolute top-[120px] left-[20px] md:left-[65px] right-[20px] md:right-[65px] h-2 rounded-full bg-[#121212] shadow-[inset_2px_2px_5px_#050505,inset_-2px_-2px_5px_#1f1f1f] overflow-hidden">
+                <div className="progress-track h-full bg-storm-lime w-0 shadow-[0_0_10px_rgba(190,242,100,0.5)]"></div>
             </div>
 
             <div className="flex-1 flex flex-col justify-center max-w-[900px] w-full mx-auto">
+
+                {/* Step Counter */}
                 <div className="mb-12 step-anim">
-                    <span className="text-agency-black/50 font-mono text-sm tracking-widest uppercase mb-4 block">
-                        0{step.id} / 0{steps.length} — {step.title}
+                    <span className="text-white/30 font-mono text-sm tracking-widest uppercase mb-4 block">
+                        Step 0{step.id} / 0{steps.length} — {step.title}
                     </span>
-                    <h2 className="text-[40px] md:text-[68px] leading-[1.1] font-medium text-agency-black tracking-tight">
+                    <h2 className="text-3xl md:text-5xl leading-tight font-bold text-white tracking-wide">
                         {step.question}
                     </h2>
                 </div>
 
+                {/* Input Area */}
                 <div className="input-container step-anim mb-16 relative">
                     {step.type === 'radio' ? (
                         <div className="flex flex-wrap gap-4">
@@ -234,75 +229,67 @@ export default function Contact() {
                                         setFormData({ ...formData, budget: opt.value });
                                         setError('');
                                     }}
-                                    onMouseEnter={(e) => {
-                                        setTooltip({
-                                            visible: true,
-                                            text: opt.description,
-                                            x: e.clientX,
-                                            y: e.clientY
-                                        });
-                                    }}
-                                    onMouseMove={(e) => {
-                                        setTooltip(prev => ({ ...prev, x: e.clientX, y: e.clientY }));
-                                    }}
-                                    onMouseLeave={() => {
-                                        setTooltip(prev => ({ ...prev, visible: false }));
-                                    }}
-                                    className={`group relative px-8 py-4 rounded-sm border transition-all duration-300 text-lg flex flex-col items-center ${formData.budget === opt.value
-                                        ? 'border-storm-lime text-agency-black bg-storm-lime'
-                                        : 'border-agency-black/10 text-agency-black hover:border-agency-black/30 bg-white'
+                                    onMouseEnter={(e) => setTooltip({ visible: true, text: opt.description, x: e.clientX, y: e.clientY })}
+                                    onMouseMove={(e) => setTooltip(prev => ({ ...prev, x: e.clientX, y: e.clientY }))}
+                                    onMouseLeave={() => setTooltip(prev => ({ ...prev, visible: false }))}
+                                    className={`group relative px-6 py-4 rounded-2xl transition-all duration-300 text-sm md:text-base font-bold uppercase tracking-wide flex flex-col items-center ${formData.budget === opt.value
+                                        ? 'bg-[#121212] text-storm-lime shadow-[inset_3px_3px_6px_#050505,inset_-3px_-3px_6px_#1f1f1f] border border-transparent' // Active (Pressed)
+                                        : 'bg-[#121212] text-white/50 shadow-[5px_5px_10px_#050505,-5px_-5px_10px_#1f1f1f] hover:translate-y-[1px] hover:text-white border border-white/5' // Inactive (Outset)
                                         }`}
                                 >
-                                    <span className="font-medium">{opt.label}</span>
+                                    <span>{opt.label}</span>
                                 </button>
                             ))}
                         </div>
                     ) : (
-                        <input
-                            autoFocus
-                            type={step.type}
-                            value={(formData as any)[step.field]}
-                            onChange={(e) => {
-                                setFormData({ ...formData, [step.field]: e.target.value });
-                                if (error) setError('');
-                            }}
-                            onKeyDown={handleKeyDown}
-                            placeholder={step.placeholder}
-                            className="w-full bg-transparent border-b border-agency-black/20 py-4 text-[24px] md:text-[32px] text-agency-black focus:border-storm-lime outline-none placeholder:text-agency-black/20 transition-colors font-light"
-                        />
+                        <div className="relative">
+                            <input
+                                autoFocus
+                                type={step.type}
+                                value={(formData as any)[step.field]}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, [step.field]: e.target.value });
+                                    if (error) setError('');
+                                }}
+                                onKeyDown={handleKeyDown}
+                                placeholder={step.placeholder}
+                                className="w-full bg-[#121212] rounded-2xl px-8 py-6 text-xl md:text-2xl text-white placeholder:text-white/20 outline-none shadow-[inset_5px_5px_10px_#050505,inset_-5px_-5px_10px_#1f1f1f] border border-transparent focus:border-storm-lime/30 transition-all font-light"
+                            />
+                        </div>
                     )}
                     {error && (
-                        <p className="absolute -bottom-8 left-0 text-red-500 text-sm mt-2">{error}</p>
+                        <p className="absolute -bottom-8 left-4 text-red-500 text-xs font-mono uppercase tracking-widest mt-2">{error}</p>
                     )}
                 </div>
 
+                {/* Controls */}
                 <div className="flex items-center gap-6 step-anim">
                     <button
                         onClick={handleNext}
                         disabled={isSubmitting}
-                        className="h-[50px] px-10 bg-agency-black text-white rounded-sm font-medium hover:bg-storm-lime hover:text-agency-black transition-colors text-[15px] disabled:opacity-50 disabled:cursor-wait"
+                        className="h-[60px] px-12 rounded-full bg-[#121212] text-storm-lime font-bold uppercase tracking-widest shadow-[6px_6px_12px_#050505,-6px_-6px_12px_#1f1f1f] hover:text-white hover:shadow-[inset_3px_3px_6px_#050505,inset_-3px_-3px_6px_#1f1f1f] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {isSubmitting ? 'Sending...' : (currentStep === steps.length - 1 ? 'Submit Proposal' : 'Continue')}
+                        {isSubmitting ? 'Transmitting...' : (currentStep === steps.length - 1 ? 'Execute Protocol' : 'Next Step')}
                     </button>
 
                     {currentStep > 0 && !isSubmitting && (
                         <button
                             onClick={handleBack}
-                            className="text-agency-black/40 hover:text-agency-black transition-colors text-[15px]"
+                            className="text-white/30 hover:text-white text-xs font-mono uppercase tracking-widest transition-colors flex items-center gap-2"
                         >
-                            Back
+                            <span>← Back</span>
                         </button>
                     )}
 
-                    <span className="ml-auto text-agency-black/20 text-xs hidden md:block">
-                        Press <strong>Enter ↵</strong> to continue
+                    <span className="ml-auto text-white/10 text-[10px] font-mono uppercase hidden md:block">
+                        Press <strong>Enter ↵</strong>
                     </span>
                 </div>
             </div>
 
             {/* Floating Tooltip */}
             <div
-                className="fixed pointer-events-none z-50 bg-agency-black text-white px-4 py-2 rounded text-sm shadow-xl max-w-[250px] transition-opacity duration-200 border border-white/10"
+                className="fixed pointer-events-none z-50 bg-[#121212] text-white px-4 py-3 rounded-xl text-xs font-bold shadow-[5px_5px_10px_#050505,-5px_-5px_10px_#1f1f1f] transition-opacity duration-200 border border-white/5 max-w-[200px]"
                 style={{
                     left: tooltip.x + 20,
                     top: tooltip.y + 20,
