@@ -39,8 +39,8 @@ export default function About() {
 
                 {/* Header (Minimal, No numbers) */}
                 <header className="mb-24 md:mb-32 text-center max-w-4xl mx-auto">
-                    <h1 className="text-6xl md:text-9xl font-display font-black text-gray-800 tracking-tighter mb-8 uppercase leading-[0.85]">
-                        Who We <br /><span className="text-transparent bg-clip-text bg-gradient-to-br from-storm-lime to-emerald-600">Are.</span>
+                    <h1 className="text-6xl md:text-9xl font-display font-black text-gray-800 pt-20 tracking-tighter mb-8 uppercase leading-[0.85]">
+                        Who We <span className="text-transparent bg-clip-text bg-gradient-to-br from-storm-lime to-emerald-400">Are.</span>
                     </h1>
                     <p className="text-gray-500 text-xl font-light leading-relaxed">
                         A multidisciplinary collective defining the new standard of digital interaction.
@@ -107,7 +107,7 @@ export default function About() {
                     <div className="grid-item md:col-span-3">
                         <Card className="flex items-center justify-center py-24 overflow-hidden relative">
                             <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
-                                <span className="text-[20vw] font-display font-black">STORM</span>
+                                <span className="text-[25vw] font-display font-black">STORM</span>
                             </div>
                             <p className="text-2xl md:text-4xl text-center font-bold text-gray-700 max-w-3xl relative z-10 leading-tight">
                                 "We don't just build websites. We build <span className="text-storm-lime">digital empires</span>."
