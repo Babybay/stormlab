@@ -15,124 +15,40 @@ const Card = ({ children, className = "" }: { children: React.ReactNode, classNa
 );
 
 export default function About() {
-    const mainRef = useRef<HTMLDivElement>(null);
-    const heroRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top top",
-                end: "+=100%",
-                scrub: 1,
-                pin: true,
-            }
-        });
-
-        // 1. Text Color Shift: Inset (Gray) -> Solid Black
-        tl.to(".hero-text", {
-            color: "#1a1a1a", // Agency Black
-            textShadow: "0px 0px 0px rgba(0,0,0,0)",
-            ease: "power2.inOut",
-        }, 0);
-
-        // 2. Subtext Shift
-        tl.to(".hero-subtext", {
-            color: "#1a1a1a",
-            opacity: 1,
-            ease: "power2.inOut",
-        }, 0);
-
-        // 3. Grid Lines Light Up
-        tl.to(".hero-grid-line", {
-            backgroundColor: "#ccff00", // Storm Lime
-            opacity: 1,
-            stagger: 0.1,
-            ease: "power1.out",
-        }, 0);
-
-        // 4. Grid Cells Pulse
-        tl.to(".hero-grid-cell", {
-            backgroundColor: "rgba(224, 229, 236, 1)", // Back to base
-            boxShadow: "inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff", // Pressed look
-            stagger: {
-                amount: 1,
-                grid: [4, 4],
-                from: "center"
-            }
-        }, 0);
-
-
-        // ENTER ANIMATON FOR CARDS
         gsap.utils.toArray<HTMLElement>('.grid-item').forEach((item, i) => {
             gsap.from(item, {
-                y: 100,
+                y: 50,
                 opacity: 0,
-                duration: 1,
+                duration: 1.2,
                 ease: "power3.out",
+                stagger: 0.1,
                 scrollTrigger: {
                     trigger: item,
-                    start: "top 85%"
+                    start: "top 90%"
                 }
             });
         });
-
-    }, { scope: mainRef });
+    }, { scope: containerRef });
 
     return (
-        <main ref={mainRef} className="min-h-screen bg-[#e0e5ec] font-sans selection:bg-storm-lime selection:text-black pb-32">
+        <main ref={containerRef} className="min-h-screen bg-[#e0e5ec] font-sans selection:bg-storm-lime selection:text-black pb-32">
 
-            {/* NEW HERO SECTION WITH SCROLL MOTION */}
-            <div ref={heroRef} className="h-screen w-full relative flex items-center justify-center overflow-hidden bg-[#e0e5ec]">
+            {/* SPACIOUS HERO HEADER */}
+            <header className="max-w-[1400px] mx-auto px-6 md:px-12 pt-32 md:pt-48 pb-24 text-center">
+                <h1 className="text-[15vw] md:text-[12vw] font-display font-black text-neumorph-inset leading-[0.8] tracking-tighter uppercase mb-12">
+                    Who We<br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-storm-lime to-agency-black drop-shadow-none">Are.</span>
+                </h1>
+                <p className="text-agency-black/70 text-2xl md:text-4xl font-light max-w-4xl mx-auto leading-relaxed">
+                    A multidisciplinary collective defining the new standard of digital interaction. <span className="font-bold text-agency-black">No compromises.</span>
+                </p>
+            </header>
 
-                {/* DECORATIVE GRID BACKGROUND */}
-                <div className="absolute inset-0 grid grid-cols-4 md:grid-cols-8 grid-rows-4 opacity-30 pointer-events-none">
-                    {Array.from({ length: 32 }).map((_, i) => (
-                        <div key={i} className="hero-grid-cell border border-agency-black/5 flex items-center justify-center">
-                            <div className="w-1 h-1 bg-agency-black/10 rounded-full"></div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* HORIZONTAL GRID LINES */}
-                <div className="absolute top-1/4 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-3/4 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                {/* VERTICAL GRID LINES */}
-                <div className="absolute top-0 left-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-0 right-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-
-
-                <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
-                    {/* MAIN HEADLINE */}
-                    <h1 className="hero-text text-[18vw] md:text-[14vw] font-display font-black text-neumorph-inset leading-[0.8] tracking-tighter uppercase mb-8 md:mb-12 cursor-default select-none">
-                        WHO WE<br />
-                        <span className="inline-block relative">
-                            ARE
-                            {/* Accent Dot */}
-                            <span className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-4 h-4 md:w-8 md:h-8 bg-storm-lime rounded-full shadow-[2px_2px_4px_#a3b1c6,-2px_-2px_4px_#ffffff]"></span>
-                        </span>
-                    </h1>
-
-                    {/* SUBTEXT */}
-                    <div className="hero-subtext text-agency-black/50 text-xl md:text-3xl font-light tracking-wide max-w-2xl mx-auto opacity-70">
-                        <span className="block font-bold mb-2 uppercase text-xs tracking-[0.2em] text-storm-lime">Scroll to Reveal</span>
-                        A multidisciplinary collective defining the new standard.
-                    </div>
-                </div>
-
-                {/* SCROLL INDICATOR */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-                    <div className="w-[1px] h-12 bg-agency-black/20 overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-full h-1/2 bg-storm-lime animate-bounce"></div>
-                    </div>
-                </div>
-            </div>
-
-            {/* SPACER FOR SCROLL LOGIC */}
-            <div className="h-[20vh] w-full"></div>
-
-            {/* IMMERSIVE BENTO GRID (Preserved) */}
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
+            {/* IMMERSIVE BENTO GRID */}
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-12">
 
                     {/* 1. THE ORIGIN (Large Block) */}

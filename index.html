@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
     rel="stylesheet">
   <style>
     body {
@@ -55,6 +55,21 @@
     .lenis.lenis-scrolling iframe {
       pointer-events: none;
     }
+
+    /* NEUMORPHIC INSET TEXT */
+    .text-neumorph-inset {
+      color: #e0e5ec;
+      text-shadow: 2px 2px 2px rgba(255, 255, 255, 1), -2px -2px 2px rgba(163, 177, 198, 0.6);
+    }
+
+    .text-neumorph-pressed {
+      color: transparent;
+      background-color: #e0e5ec;
+      background-clip: text;
+      -webkit-background-clip: text;
+      text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5), -2px -2px 4px rgba(112, 128, 144, 0.5);
+      /* Attempt at engraved look */
+    }
   </style>
   <script>
     tailwind.config = {
@@ -62,6 +77,7 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'GraphikLCG', 'Arial', 'sans-serif'],
+            display: ['Oswald', 'Inter', 'sans-serif'],
             serif: ['"Playfair Display"', '"Times New Roman"', 'serif'],
           },
           colors: {
