@@ -8,7 +8,7 @@ import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
 import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
-import Testimonials from '../components/Testimonials';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -198,7 +198,7 @@ export default function Home() {
             <section className="relative w-full min-h-screen bg-agency-black shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" style={{ zIndex: 30 + expertises.length + 1 }}>
                 <Capabilities />
                 <Clients />
-                <Testimonials />
+                <TestimonialsSection />
                 <FAQ />
             </section>
         </main>

@@ -55,31 +55,34 @@ const TestimonialsSection = () => {
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 932; // Card width + padding
+            // Get card width dynamically or use fixed
+            const card = scrollContainerRef.current.querySelector('.testimonial-card');
+            const cardWidth = card ? card.clientWidth + 36 : 350; // 36 is gap (pl-[36px] effectively acts as gap)
+
             scrollContainerRef.current.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                left: direction === 'left' ? -cardWidth : cardWidth,
                 behavior: 'smooth'
             });
         }
     };
 
     return (
-        <section className="bg-agency-black py-[80px] overflow-hidden text-white flex flex-col gap-[40px] md:gap-[60px]">
+        <section className="bg-agency-black py-[60px] md:py-[80px] overflow-hidden text-white flex flex-col gap-[40px] md:gap-[60px]">
             <div className="ml-auto mr-auto w-full max-w-[1320px] px-[20px] lg:px-[65.3333px] flex flex-col md:flex-row justify-between items-end">
-                <h2 className="font-medium text-[40px] md:text-[67.64px] tracking-[-2px] md:tracking-[-4.7348px] leading-[1.1] md:leading-[62.2998px] text-white">
+                <h2 className="font-medium text-[36px] md:text-[67.64px] tracking-[-1px] md:tracking-[-4.7348px] leading-[1.1] md:leading-[62.2998px] text-white">
                     Testimonials
                 </h2>
-                <div className="flex items-center gap-[9px] mt-6 md:mt-0">
+                <div className="flex items-center gap-[9px] mt-6 md:mt-0 hidden md:flex">
                     <button
                         onClick={() => scroll('left')}
-                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-transparent cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-transparent cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime disabled:opacity-30 disabled:cursor-not-allowed group"
                         aria-label="Previous testimonial"
                     >
                         <ArrowLeftIcon />
                     </button>
                     <button
                         onClick={() => scroll('right')}
-                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-transparent cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-transparent cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime disabled:opacity-30 disabled:cursor-not-allowed group"
                         aria-label="Next testimonial"
                     >
                         <ArrowRightIcon />
@@ -87,43 +90,61 @@ const TestimonialsSection = () => {
                 </div>
             </div>
 
-            <div
-                className="flex w-full overflow-x-auto pb-[40px] scroll-smooth no-scrollbar"
-                ref={scrollContainerRef}
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-                <div className="flex items-start gap-0 pl-[36px]">
-                    {testimonials.map((item) => {
-                        // Define colors based on theme
-                        const getColors = (theme: string) => {
-                            switch (theme) {
-                                case 'pink': return { bg: 'bg-[#8A0467]', text: 'text-white', icon: '#CDCECF' };
-                                case 'green': return { bg: 'bg-[#03624C]', text: 'text-white', icon: '#CDCECF' };
-                                case 'blue': return { bg: 'bg-[#A5C8EB]', text: 'text-agency-black', icon: '#000000' };
-                                default: return { bg: 'bg-agency-gray', text: 'text-agency-black', icon: '#000000' };
-                            }
-                        };
-                        const colors = getColors(item.theme);
+            <div className="relative w-full">
+                <div
+                    className="flex w-full overflow-x-auto pb-[40px] snap-x snap-mandatory scroll-smooth no-scrollbar pl-[20px] md:pl-[calc((100vw-1320px)/2+65px)] pr-[20px]"
+                    ref={scrollContainerRef}
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                    <div className="flex items-start gap-[20px] md:gap-[36px] w-max">
+                        {testimonials.map((item) => {
+                            // Define colors based on theme
+                            const getColors = (theme: string) => {
+                                switch (theme) {
+                                    case 'pink': return { bg: 'bg-[#8A0467]', text: 'text-white', icon: '#CDCECF' };
+                                    case 'green': return { bg: 'bg-[#03624C]', text: 'text-white', icon: '#CDCECF' };
+                                    case 'blue': return { bg: 'bg-[#A5C8EB]', text: 'text-agency-black', icon: '#000000' };
+                                    default: return { bg: 'bg-agency-gray', text: 'text-agency-black', icon: '#000000' };
+                                }
+                            };
+                            const colors = getColors(item.theme);
 
-                        return (
-                            <div key={item.id} className="flex px-[18px] items-start flex-[0_0_auto] w-[85vw] md:w-[932px] box-border">
-                                <div className={`flex p-[30px] md:p-[54px] flex-col justify-between items-start flex-[1_0_0] self-stretch min-h-[500px] md:height-[720px] relative box-border ${colors.bg} ${colors.text}`}>
-                                    <div className="flex justify-between items-start gap-[20px] w-full">
-                                        <p className="font-sans text-[28px] md:text-[40px] lg:text-[48px] font-normal leading-[1.1] tracking-[-1px] md:tracking-[-1.5px] max-w-[85%] m-0">
-                                            {item.text}
-                                        </p>
-                                        <div className="w-[48px] h-[48px] md:w-[72px] md:h-[72px] flex-shrink-0">
-                                            <QuoteIcon color={colors.icon} />
+                            return (
+                                <div key={item.id} className="testimonial-card snap-center flex flex-col justify-between w-[90vw] md:w-[600px] lg:w-[932px] box-border rounded-[20px] overflow-hidden shrink-0">
+                                    <div className={`flex p-[24px] md:p-[54px] flex-col justify-between items-start h-[400px] md:h-[600px] lg:h-[720px] box-border ${colors.bg} ${colors.text}`}>
+                                        <div className="flex justify-between items-start gap-[10px] md:gap-[20px] w-full">
+                                            <p className="font-sans text-[22px] md:text-[40px] lg:text-[48px] font-normal leading-[1.2] md:leading-[1.1] tracking-[-0.5px] md:tracking-[-1.5px] max-w-[85%] m-0">
+                                                {item.text}
+                                            </p>
+                                            <div className="w-[32px] h-[32px] md:w-[72px] md:h-[72px] flex-shrink-0 opacity-50">
+                                                <QuoteIcon color={colors.icon} />
+                                            </div>
+                                        </div>
+                                        <div className="flex right ml-[auto] items-start py-[auto] gap-0 flex-col md:flex-row md:items-center">
+                                            <span className="font-sans text-[16px] md:text-[18px] font-normal leading-[1.4] tracking-[-0.36px] font-bold">{item.author}</span>
+                                            <span className="hidden md:inline mx-1">-</span>
+                                            <span className="font-sans text-[14px] md:text-[18px] font-normal leading-[1.4] tracking-[-0.36px] opacity-80">{item.role}</span>
                                         </div>
                                     </div>
-                                    <div className="flex right ml-[auto] items-start py-[auto] gap-0">
-                                        <span className="font-sans text-[18px] font-normal leading-[1.4] tracking-[-0.36px]">{item.author} - </span>
-                                        <span className="font-sans text-[18px] font-normal leading-[1.4] tracking-[-0.36px] opacity-80"> {item.role}</span>
-                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
+                </div>
+                {/* Mobile Navigation Arrows Overlay */}
+                <div className="flex md:hidden justify-center gap-[20px] mt-4">
+                    <button
+                        onClick={() => scroll('left')}
+                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-agency-black/50 backdrop-blur-sm cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime"
+                    >
+                        <ArrowLeftIcon />
+                    </button>
+                    <button
+                        onClick={() => scroll('right')}
+                        className="flex w-[45px] h-[45px] p-[9px] justify-center items-center rounded-full border border-white/20 bg-agency-black/50 backdrop-blur-sm cursor-pointer transition-all duration-300 text-white hover:border-storm-lime hover:text-storm-lime"
+                    >
+                        <ArrowRightIcon />
+                    </button>
                 </div>
             </div>
         </section>

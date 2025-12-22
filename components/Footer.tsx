@@ -43,54 +43,56 @@ export default function Footer() {
   return (
     <footer ref={containerRef} className="relative bg-white pt-[60px] flex flex-col justify-between overflow-hidden z-10 border-t border-agency-black/10">
 
-      <div className="ml-auto mr-auto w-full max-w-[1320px] px-[65.33px] mb-[60px]">
+      <div className="ml-auto mr-auto w-full max-w-[1320px] px-[20px] md:px-[65.33px] mb-[40px] md:mb-[60px]">
         {/* Top: Minimal Grid */}
-        <div className="flex flex-wrap justify-between items-start pt-[20px]">
+        <div className="flex flex-col md:flex-row justify-between items-start pt-[20px] gap-8 md:gap-0">
 
           {/* Column 1: Copyright */}
-          <div className="footer-link-group w-full sm:w-1/2 md:w-auto mb-8 md:mb-0 order-1 md:order-1">
+          <div className="footer-link-group w-full md:w-auto order-4 md:order-1 mt-8 md:mt-0 text-center md:text-left">
             <span className="block text-[14px] text-agency-black/40">© 2025 StormLab Agency.</span>
             <span className="block text-[14px] text-agency-black/40 mt-1">All Rights Reserved.</span>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div className="footer-link-group w-1/2 sm:w-1/4 md:w-auto pr-8 order-2 md:order-2 mb-8 md:mb-0">
-            <h4 className="text-[12px] uppercase tracking-wider text-agency-black/40 mb-4">Explore</h4>
-            <ul className="space-y-2">
-              {['Work', 'Services', 'Agency', 'Insights'].map(item => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase() === 'agency' ? 'company' : item.toLowerCase() === 'insights' ? 'blog' : item.toLowerCase()}`}
-                    className="text-[16px] font-medium text-agency-black hover:text-agency-black/60 transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="w-full md:w-auto flex flex-row flex-wrap justify-between md:gap-16 order-1 md:order-2">
+            {/* Column 2: Navigation */}
+            <div className="footer-link-group w-1/2 md:w-auto pr-4 md:pr-8">
+              <h4 className="text-[12px] uppercase tracking-wider text-agency-black/40 mb-4">Explore</h4>
+              <ul className="space-y-2">
+                {['Work', 'Services', 'Agency', 'Insights'].map(item => (
+                  <li key={item}>
+                    <Link
+                      to={`/${item.toLowerCase() === 'agency' ? 'company' : item.toLowerCase() === 'insights' ? 'blog' : item.toLowerCase()}`}
+                      className="text-[16px] font-medium text-agency-black hover:text-agency-black/60 transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Column 3: Socials */}
-          <div className="footer-link-group w-1/2 sm:w-1/4 md:w-auto order-3 md:order-3 mb-8 md:mb-0">
-            <h4 className="text-[12px] uppercase tracking-wider text-agency-black/40 mb-4">Connect</h4>
-            <ul className="space-y-2">
-              {socials.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-[16px] font-medium text-agency-black hover:text-agency-black/60 transition-colors"
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Column 3: Socials */}
+            <div className="footer-link-group w-1/2 md:w-auto">
+              <h4 className="text-[12px] uppercase tracking-wider text-agency-black/40 mb-4">Connect</h4>
+              <ul className="space-y-2">
+                {socials.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="text-[16px] font-medium text-agency-black hover:text-agency-black/60 transition-colors"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Column 4: Location/CTA Small */}
-          <div className="footer-link-group w-full sm:w-1/2 md:w-auto mt-0 md:mt-0 md:text-right order-4 md:order-4">
+          <div className="footer-link-group w-full md:w-auto text-left md:text-right order-3 md:order-4 border-t border-agency-black/10 md:border-none pt-8 md:pt-0 mt-4 md:mt-0">
             <p className="text-[16px] font-medium mb-1">Bali, Indonesia</p>
             <a href="mailto:hello@stormlab.agency" className="text-[16px] text-agency-black/40 hover:text-agency-black transition-colors">hello@stormlab.agency</a>
           </div>
