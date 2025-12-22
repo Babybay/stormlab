@@ -163,7 +163,6 @@ export default function Home() {
 
                 {/* SCROLL INDICATOR */}
                 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-                    <span className="text-xs uppercase tracking-[0.3em] text-agency-black/40 mb-2">Initialize</span>
                     <div className="w-[1px] h-16 bg-agency-black/10 overflow-hidden relative">
                         <div className="absolute top-0 left-0 w-full h-1/2 bg-storm-lime animate-bounce"></div>
                     </div>
