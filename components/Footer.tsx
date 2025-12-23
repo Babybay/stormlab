@@ -43,7 +43,18 @@ export default function Footer() {
   return (
     <footer ref={containerRef} className="relative bg-white pt-[60px] flex flex-col justify-between overflow-hidden z-10 border-t border-agency-black/10">
 
-      <div className="ml-auto mr-auto w-full max-w-[1320px] px-[20px] md:px-[65.33px] mb-[40px] md:mb-[60px]">
+      {/* BACKGROUND DECORATIVE LINES */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 flex justify-center">
+        <div className="w-full max-w-[1320px] px-[20px] md:px-[65.33px] flex justify-between h-full">
+          <div className="w-[1px] h-full bg-agency-black/5"></div>
+          <div className="w-[1px] h-full bg-agency-black/5"></div>
+          <div className="w-[1px] h-full bg-agency-black/5"></div>
+          <div className="w-[1px] h-full bg-agency-black/5"></div>
+          <div className="w-[1px] h-full bg-agency-black/5"></div>
+        </div>
+      </div>
+
+      <div className="relative z-10 ml-auto mr-auto w-full max-w-[1320px] px-[20px] md:px-[65.33px] mb-[20px] md:mb-[30px]">
         {/* Top: Minimal Grid */}
         <div className="flex flex-col md:flex-row justify-between items-start pt-[20px] gap-8 md:gap-0">
 
