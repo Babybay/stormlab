@@ -50,14 +50,13 @@ const ArrowRightIcon = () => (
     </svg>
 );
 
-const TestimonialsSection = () => {
+const Testimonials = () => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
-            // Get card width dynamically or use fixed
             const card = scrollContainerRef.current.querySelector('.testimonial-card');
-            const cardWidth = card ? card.clientWidth + 36 : 350; // 36 is gap (pl-[36px] effectively acts as gap)
+            const cardWidth = card ? card.clientWidth + 36 : 350;
 
             scrollContainerRef.current.scrollBy({
                 left: direction === 'left' ? -cardWidth : cardWidth,
@@ -98,7 +97,6 @@ const TestimonialsSection = () => {
                 >
                     <div className="flex items-start gap-[20px] md:gap-[36px] w-max">
                         {testimonials.map((item) => {
-                            // Define colors based on theme
                             const getColors = (theme: string) => {
                                 switch (theme) {
                                     case 'pink': return { bg: 'bg-[#8A0467]', text: 'text-white', icon: '#CDCECF' };
@@ -151,4 +149,4 @@ const TestimonialsSection = () => {
     );
 };
 
-export default TestimonialsSection;
+export default Testimonials;

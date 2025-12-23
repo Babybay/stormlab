@@ -1,16 +1,12 @@
-
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
+import Hero from '../components/Hero';
 import StudioStatement from '../components/StudioStatement';
 import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
 import Clients from '../components/Clients';
+// import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
-import TestimonialsSection from '../components/TestimonialsSection';
-
-gsap.registerPlugin(ScrollTrigger);
+import Testimonials from '../components/Testimonials';
 
 const expertises = [
     {
@@ -66,111 +62,12 @@ const expertises = [
 ];
 
 export default function Home() {
-    const mainRef = useRef<HTMLDivElement>(null);
-    const heroRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top top",
-                end: "+=100%",
-                scrub: 1,
-                pin: true,
-            }
-        });
-
-        // 1. Text Color Shift: Inset (Gray) -> Solid Black
-        tl.to(".hero-text", {
-            color: "#1a1a1a", // Agency Black
-            textShadow: "0px 0px 0px rgba(0,0,0,0)",
-            ease: "power2.inOut",
-        }, 0);
-
-        // 2. Subtext Shift
-        tl.to(".hero-desc", {
-            color: "#1a1a1a",
-            opacity: 1,
-            y: 0,
-            ease: "power2.inOut",
-        }, 0);
-
-        // 3. Grid Lines Light Up
-        tl.to(".hero-grid-line", {
-            backgroundColor: "#ccff00", // Storm Lime
-            opacity: 1,
-            stagger: 0.1,
-            ease: "power1.out",
-        }, 0);
-
-        // 4. Grid Cells Pulse
-        tl.to(".hero-grid-cell", {
-            backgroundColor: "rgba(224, 229, 236, 1)", // Back to base
-            boxShadow: "inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff", // Pressed look
-            stagger: {
-                amount: 1,
-                grid: [4, 4],
-                from: "random"
-            }
-        }, 0);
-
-    }, { scope: mainRef });
-
     return (
-        <main ref={mainRef} className="relative w-full isolate bg-[#e0e5ec]">
-
-            {/* NEW HERO SECTION WITH SCROLL MOTION */}
-            <div ref={heroRef} className="h-screen w-full relative flex items-center justify-center overflow-hidden bg-[#e0e5ec]">
-
-                {/* DECORATIVE GRID BACKGROUND */}
-                <div className="absolute inset-0 grid grid-cols-4 md:grid-cols-6 grid-rows-6 opacity-30 pointer-events-none">
-                    {Array.from({ length: 36 }).map((_, i) => (
-                        <div key={i} className="hero-grid-cell border border-agency-black/5 flex items-center justify-center transition-all duration-500">
-                            {/* Randomly placed dots for texture */}
-                            {i % 3 === 0 && <div className="w-1 h-1 bg-agency-black/10 rounded-full"></div>}
-                        </div>
-                    ))}
-                </div>
-
-                {/* HORIZONTAL GRID LINES */}
-                <div className="absolute top-1/3 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-2/3 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-
-                {/* VERTICAL GRID LINES */}
-                <div className="absolute top-0 left-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-0 right-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-
-
-                <div className="relative z-10 text-center px-4 max-w-[90vw] mx-auto">
-                    {/* CREATIVE OVERLAY TEXT */}
-                    <div className="relative inline-block mb-8">
-                        {/* Large "STORM" overlaying grid */}
-                        <h1 className="hero-text text-[20vw] font-display font-black text-neumorph-inset leading-[0.75] tracking-tighter uppercase cursor-default select-none relative z-20 mix-blend-hard-light">
-                            STORM
-                        </h1>
-                        {/* "LAB" positioned creatively */}
-                        <h1 className="hero-text text-[20vw] font-display font-black text-neumorph-inset leading-[0.75] tracking-tighter uppercase cursor-default select-none relative z-10 -mt-[4vw] ml-[25vw]">
-                            LAB
-                        </h1>
-                    </div>
-
-                    {/* DESCRIPTION TEXT */}
-                    <p className="hero-desc text-agency-black/40 text-2xl md:text-4xl font-light font-sans max-w-4xl mx-auto leading-tight translate-y-12 opacity-50">
-                        We orchestrate digital chaos into <span className="font-bold">functional art</span>.
-                        Defining the next era of web experience.
-                    </p>
-                </div>
-
-                {/* SCROLL INDICATOR */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-                    <div className="w-[1px] h-16 bg-agency-black/10 overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-full h-1/2 bg-storm-lime animate-bounce"></div>
-                    </div>
-                </div>
-            </div>
-
-            {/* SPACER FOR SCROLL LOGIC */}
-            <div className="h-[20vh] w-full bg-[#e0e5ec]"></div>
+        <main className="relative w-full isolate">
+            {/* 1. Hero */}
+            <section className="w-full h-screen overflow-hidden bg-agency-black border-b border-agency-black/5 z-10 relative">
+                <Hero />
+            </section>
 
             {/* 2. Studio Statement - Gradient Reveal */}
             <StudioStatement />
@@ -198,7 +95,7 @@ export default function Home() {
             <section className="relative w-full min-h-screen bg-agency-black shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" style={{ zIndex: 30 + expertises.length + 1 }}>
                 <Capabilities />
                 <Clients />
-                <TestimonialsSection />
+                <Testimonials />
                 <FAQ />
             </section>
         </main>

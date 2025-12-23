@@ -31,9 +31,9 @@ const faqs = [
     }
 ];
 
-const FAQItem = ({ faq, isOpen, toggle }) => {
-    const answerRef = useRef(null);
-    const containerRef = useRef(null);
+const FAQItem = ({ faq, isOpen, toggle }: { faq: any, isOpen: boolean, toggle: () => void }) => {
+    const answerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (isOpen) {
@@ -83,7 +83,7 @@ const FAQItem = ({ faq, isOpen, toggle }) => {
 };
 
 const FAQ = () => {
-    const [openId, setOpenId] = useState(1);
+    const [openId, setOpenId] = useState<number | null>(1);
 
     return (
         <section className="bg-agency-black py-[120px] px-[20px] lg:px-[65px] border-t border-white/10" id="help">
@@ -93,7 +93,7 @@ const FAQ = () => {
                 <div className="lg:col-span-4">
                     <div className="sticky top-32">
                         <h2 className="text-[48px] font-medium tracking-tight leading-[1.1] text-white mb-8">
-                            Common <br /> Questions
+                            Common <br />Questions
                         </h2>
                         <p className="text-[14.24px] text-white/60 max-w-sm mb-12">
                             Everything you need to know about working with Stormlab. Can't find the answer?
