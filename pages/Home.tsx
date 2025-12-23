@@ -4,7 +4,6 @@ import StudioStatement from '../components/StudioStatement';
 import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
 import Clients from '../components/Clients';
-// import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
 
