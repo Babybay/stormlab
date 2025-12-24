@@ -12,10 +12,11 @@ export default function Header() {
 
   useGSAP(() => {
     gsap.fromTo(containerRef.current,
-      { y: -150, autoAlpha: 0 },
+      { y: -150, autoAlpha: 0, xPercent: -50 },
       {
         y: 0,
         autoAlpha: 1,
+        xPercent: -50,
         duration: 0.6,
         ease: "back.out(1.4)", // Pop up effect
         scrollTrigger: {
