@@ -42,15 +42,15 @@ export default function PricingSection() {
             <div className="max-w-[1400px] mx-auto w-full relative">
 
                 {/* Header Container with Layered Typography */}
-                <div className="absolute top-20 left-0 w-full pt-10 md:pt-0 pl-4 md:pl-20 z-0 select-none">
+                <div className="absolute top-20 left-0 w-full pt-10 md:pt-0 pl-[2px] z-0 select-none">
                     <div className="relative inline-block">
-                        {/* Layer 1: Base - PRICING - Embossed Style like Ref Image */}
+                        {/* Layer 1: Base - PRICING - Sunken/Inset Style */}
                         <h2 className="font-display font-black tracking-tighter uppercase leading-[0.8]"
                             style={{
                                 fontSize: '18vw',
                                 color: '#ccff00', // Same as background
-                                // Embossed effect: Light Top-Left, Dark Bottom-Right
-                                textShadow: '-4px -4px 8px rgba(255,255,255,0.6), 4px 4px 8px rgba(100,128,0,0.4)'
+                                // Sunken effect: Dark Top-Left (Shadow), Light Bottom-Right (Highlight)
+                                textShadow: '-4px -4px 8px rgba(100,128,0,0.4), 4px 4px 8px rgba(255,255,255,0.6)'
                             }}>
                             PRICING
                         </h2>
@@ -63,7 +63,7 @@ export default function PricingSection() {
                         {pricingPackages.map((pkg, idx) => (
                             <div
                                 key={idx}
-                                className="group relative rounded-[30px] border-2 border-agency-black/10 bg-white/20 backdrop-blur-sm p-8 transition-all duration-300 hover:-translate-y-2 hover:border-agency-black"
+                                className="group relative rounded-[30px] border-2 border-agency-black/10 bg-white/20 backdrop-blur-sm p-8 transition-all duration-300 hover:border-agency-black hover:shadow-[8px_8px_0px_0px_#000000]"
                             >
                                 <div className="relative flex flex-col h-full justify-between h-[450px]">
                                     <div>
@@ -96,9 +96,18 @@ export default function PricingSection() {
                                         </div>
                                     </div>
 
-                                    {/* CTA Button */}
-                                    <button className="w-full py-4 rounded-xl bg-agency-black font-black text-storm-lime uppercase tracking-widest text-sm transition-all hover:bg-white hover:text-agency-black border border-transparent hover:border-agency-black">
-                                        Select Plan
+                                    {/* CTA Button - Rolling Text Animation (Black Bg, Lime Text on Hover) */}
+                                    <button className="relative w-full h-14 rounded-xl bg-agency-black overflow-hidden transition-all duration-300 border border-transparent hover:border-agency-black group/btn">
+                                        <div className="relative w-full h-full flex flex-col items-center justify-center transition-transform duration-300 group-hover/btn:-translate-y-[100%]">
+                                            {/* Default Text */}
+                                            <span className="flex items-center justify-center h-full font-black text-storm-lime uppercase tracking-widest text-sm">
+                                                Select Plan
+                                            </span>
+                                            {/* Hover Text (Absolute overlay or stacked in flex col) */}
+                                            <span className="absolute top-[100%] left-0 w-full h-full flex items-center justify-center font-black text-storm-lime uppercase tracking-widest text-sm">
+                                                Select Plan
+                                            </span>
+                                        </div>
                                     </button>
                                 </div>
                             </div>
