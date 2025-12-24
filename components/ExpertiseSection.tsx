@@ -70,69 +70,76 @@ export default function ExpertiseSection({ id, number, title, description, link,
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id={id} className="-mt-px relative bg-[#e0e5ec] min-h-[calc(100vh-60px)] border-b border-white/40 z-[1]">
-      <div className="flex flex-col h-full min-h-[calc(100vh-60px)]">
-        {/* Sticky Header within the section */}
-        <div className="sticky top-[40.83px] z-[20] bg-[#e0e5ec] border-t border-white/40 py-[13.88px]">
-          <div className="ml-auto mr-auto max-w-[1320px] px-[65.33px]">
-          </div>
-        </div>
+    <section ref={sectionRef} id={id} className="-mt-px relative bg-[#e0e5ec] min-h-[calc(100vh-60px)] border-b border-white/40 z-[1] py-20">
+      <div className="ml-auto mr-auto max-w-[1320px] px-[20px] md:px-[65.33px] relative h-full">
 
-        {/* Content Container */}
-        <div className="ml-auto mr-auto max-w-[1320px] px-[20px] md:px-[65.33px] pb-[61.25px] flex-grow relative">
+        <div className="flex flex-col md:flex-row gap-12 md:gap-24 items-start">
 
-          {/* Sticky Description Row */}
-          <div className="sticky top-[70px] z-[10] flex flex-wrap -mx-[16.33px] pt-[40.83px] pb-[20.41px] pointer-events-none">
-            <div className="w-full md:w-[50%] md:ml-[25%] px-[16.33px] order-1 pointer-events-auto mb-8 md:mb-0 text-agency-black">
-              <h2 className="font-medium text-[32px] md:text-[42px] leading-[1.1] pb-[20px] md:pb-[34.7px]">{title}</h2>
-              <p className="max-w-[385px] text-[16px] leading-relaxed text-agency-black/60">{description}</p>
+          {/* Left Column: Sticky Title & Description */}
+          <div className="w-full md:w-5/12 sticky top-32 z-20">
+            <div className="flex items-center gap-4 mb-4">
+              <span className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-agency-black text-agency-black font-display font-bold text-xl bg-transparent">
+                {number}
+              </span>
+              <div className="h-[2px] w-12 bg-agency-black"></div>
             </div>
-            <div className="w-full md:w-[25%] px-[16.33px] pointer-events-auto mb-8 md:mb-0">
-              <div className="flex items-center group cursor-pointer">
-                <div className="w-[40px] h-[40px] mr-[14.29px] bg-[#e0e5ec] text-storm-lime border border-storm-lime rounded-full flex items-center justify-center text-[16px] font-medium shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff]">
-                  {number}
-                </div>
-                <a href={link} className="h-[40px] px-[20px] bg-[#e0e5ec] border border-white rounded-full flex items-center text-[14px] text-agency-black hover:text-storm-lime hover:border-storm-lime transition-all duration-300 shadow-[5px_5px_10px_#a3b1c6,-5px_-5px_10px_#ffffff]">
-                  Learn More
-                </a>
-              </div>
-            </div>
+
+            <h2 className="font-display font-black text-6xl md:text-7xl lg:text-8xl text-agency-black uppercase leading-[0.9] tracking-tight mb-8">
+              {title}
+            </h2>
+
+            <p className="font-sans text-lg md:text-xl text-agency-black/70 font-medium leading-relaxed max-w-md mb-10">
+              {description}
+            </p>
+
+            <a href={link} className="inline-flex items-center gap-2 font-display font-bold text-agency-black uppercase tracking-widest text-sm hover:text-opacity-70 transition-all group">
+              View All Projects
+              <span className="w-8 h-8 rounded-full bg-agency-black text-white flex items-center justify-center transition-transform group-hover:translate-x-1">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
           </div>
 
-          {/* Projects Grid - Scrolls over the sticky description */}
-          <div className="relative z-[15] flex flex-wrap mt-[20px] -mx-[16.33px] bg-transparent">
-            {/* Spacer to allow initial view of sticky text before projects cover it */}
-            <div className="w-full h-[15px]"></div>
-            {projects.map((project, idx) => (
-              <div key={idx} className="project-item w-full md:w-[50%] px-[16.33px] mt-[40px] md:mt-0 pb-4">
-                {/* Bg light on items to ensure cover */}
-                <div className="relative group cursor-pointer bg-[#e0e5ec] border border-white/40 rounded-[30px] p-4 shadow-[9px_9px_16px_rgb(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,0.5)] hover:shadow-[12px_12px_24px_rgb(163,177,198,0.6),-12px_-12px_24px_rgba(255,255,255,0.5)] transition-all duration-300">
-                  <a href={project.url} className="block overflow-hidden relative w-full aspect-[2/1] rounded-[20px]">
-                    <div className="size-full overflow-hidden">
+          {/* Right Column: Projects Grid (Scrollable) */}
+          <div className="w-full md:w-7/12 pt-0 md:pt-32">
+            <div className="grid grid-cols-1 gap-12">
+              {projects.map((project, idx) => (
+                <div key={idx} className="project-item group">
+                  <a href={project.url} className="block relative w-full aspect-[4/3] rounded-[30px] overflow-hidden border-2 border-agency-black/5 bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] transition-transform duration-500 hover:-translate-y-2">
+                    <div className="absolute inset-0 overflow-hidden">
                       <img
                         src={project.image}
                         alt={project.name}
-                        className="project-image block w-full h-full object-cover transition-transform duration-700"
+                        className="project-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
-                    {/* Hover Overlay Button */}
-                    <div className="absolute right-[32px] bottom-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                      <div className="w-[40px] h-[40px] bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-storm-lime shadow-lg">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
+
+                    {/* Overlay Details */}
+                    <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between">
+                      <div>
+                        <p className="text-white font-sans text-sm uppercase tracking-wider mb-1">{project.category}</p>
+                        <h3 className="text-white font-display font-bold text-3xl">{project.name}</h3>
+                      </div>
+                      <div className="w-12 h-12 rounded-full bg-white text-agency-black flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="7" y1="17" x2="17" y2="7"></line>
+                          <polyline points="7 7 17 7 17 17"></polyline>
                         </svg>
                       </div>
                     </div>
                   </a>
-                  <div className="mt-[20px] px-2">
-                    <p className="mb-[8px] text-[18px] font-medium text-agency-black group-hover:text-storm-lime transition-colors">{project.name}</p>
-                    <p className="text-agency-black/50 text-[14px]">{project.category}</p>
+                  <div className="mt-4 flex justify-between items-center px-2 md:hidden">
+                    <h3 className="text-agency-black font-display font-bold text-2xl">{project.name}</h3>
+                    <p className="text-agency-black/50 font-sans text-sm">{project.category}</p>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
         </div>
       </div>
     </section>
