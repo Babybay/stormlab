@@ -1,162 +1,109 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-interface PricingTier {
-    name: string;
-    price: string;
-    description?: string;
-    features: string[];
-}
-
-interface PricingCategory {
-    category: string;
-    tiers: PricingTier[];
-}
-
-const pricingData: PricingCategory[] = [
+const pricingPackages = [
     {
-        category: "Web Strategy",
-        tiers: [
-            {
-                name: "Starter",
-                price: "IDR 1.5M – 2M",
-                description: "Perfect for small businesses or startups.",
-                features: [
-                    "1x Consultation Session (60–90 mins)",
-                    "Basic Competitor Analysis",
-                    "Target Audience & Basic Persona Definition",
-                    "Goal Setting (3–5 KPIs)",
-                    "Core Tactic Recommendations (Strategy Only)"
-                ]
-            },
-            {
-                name: "Growth",
-                price: "IDR 3M – 4.5M",
-                description: "For businesses needing a serious roadmap.",
-                features: [
-                    "2x Consultation Sessions",
-                    "Competitor Analysis + Benchmarking",
-                    "Complete Customer Personas",
-                    "Marketing Funnel Overview",
-                    "30–60 Day Action Plan",
-                    "Tools & Budget Breakdown Recommendations"
-                ]
-            }
+        title: 'RAPID LAUNCH',
+        price: '15M',
+        description: 'Perfect for startups needing a quick, high-impact market entry.',
+        features: [
+            'Brand Identity System',
+            'Landing Page Development',
+            'Social Media Kit',
+            '2 Weeks Turnaround'
         ]
     },
     {
-        category: "Social Media Planning",
-        tiers: [
-            {
-                name: "Starter",
-                price: "IDR 1M – 1.5M",
-                description: "Essential social foundation to get you started.",
-                features: [
-                    "Account Audit",
-                    "Content Ideas (10–15 Feeds/Stories)",
-                    "Caption Guide (No Full Copywriting)",
-                    "Basic Posting Schedule"
-                ]
-            }
+        title: 'GROWTH ENGINE',
+        price: '35M',
+        description: 'Comprehensive solution for scaling businesses.',
+        features: [
+            'Full Website Redesign',
+            'SEO & Content Strategy',
+            'Marketing Automation',
+            'Monthly Analytics Report'
         ]
     },
     {
-        category: "Design & Graphics",
-        tiers: [
-            {
-                name: "Starter",
-                price: "IDR 800K – 1.2M",
-                description: "Quick, high-quality assets for your feed.",
-                features: [
-                    "5–7 Content Designs (Static)",
-                    "Basic Color & Font Recommendations",
-                    "1x Revision Set"
-                ]
-            },
-            {
-                name: "Growth",
-                price: "IDR 2M – 3M",
-                description: "Consistent visual identity for growing brands.",
-                features: [
-                    "10–15 Content Designs",
-                    "Template Design (Canva/Figma)",
-                    "Basic Visual Guidelines",
-                    "2x Revision Sets"
-                ]
-            },
-            {
-                name: "Pro",
-                price: "IDR 4M – 6M",
-                description: "Full-scale creative direction and campaign support.",
-                features: [
-                    "20–25 Content Designs",
-                    "Creative Direction (Moodboard + Visual Brand)",
-                    "Advanced Layout + Multiple Formats",
-                    "3x Revision Sets",
-                    "Campaign Support"
-                ]
-            }
+        title: 'DOMINANCE',
+        price: '75M+',
+        description: 'End-to-end digital transformation and market domination.',
+        features: [
+            'Custom Web App Development',
+            '360° Brand Campaign',
+            'Dedicated Growth Team',
+            '24/7 Priority Support'
         ]
     }
 ];
 
 export default function PricingSection() {
-    const navigate = useNavigate();
-
     return (
-        <section className="bg-white py-[80px] text-agency-black">
-            <div className="ml-auto mr-auto max-w-[1320px] px-[65.3333px]">
-                <h2 className="font-medium text-[67.64px] tracking-[-4.7348px] leading-[62.2998px] mb-[60px] text-agency-black">
-                    Investment <span className="text-storm-lime">Packages</span>
-                </h2>
+        <section className="relative w-full bg-storm-lime py-2 px-4 md:px-8 font-sans min-h-screen flex flex-col justify-center">
+            <div className="max-w-[1400px] mx-auto w-full relative">
 
-                <div className="flex flex-col gap-24">
-                    {pricingData.map((cat, idx) => (
-                        <div key={idx} className="flex flex-col gap-8">
-                            <h3 className="text-[28px] md:text-[32px] font-mono uppercase tracking-widest text-agency-black/50 border-b border-agency-black/10 pb-4">
-                                0{idx + 1} . {cat.category}
-                            </h3>
+                {/* Header Container with Layered Typography */}
+                <div className="absolute top-20 left-0 w-full pt-10 md:pt-0 pl-4 md:pl-20 z-0 select-none">
+                    <div className="relative inline-block">
+                        {/* Layer 1: Base - PRICING - Embossed Style like Ref Image */}
+                        <h2 className="font-display font-black tracking-tighter uppercase leading-[0.8]"
+                            style={{
+                                fontSize: '18vw',
+                                color: '#ccff00', // Same as background
+                                // Embossed effect: Light Top-Left, Dark Bottom-Right
+                                textShadow: '-4px -4px 8px rgba(255,255,255,0.6), 4px 4px 8px rgba(100,128,0,0.4)'
+                            }}>
+                            PRICING
+                        </h2>
+                    </div>
+                </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {cat.tiers.map((tier, tIdx) => (
-                                    <div
-                                        key={tIdx}
-                                        className="group p-8 border border-agency-black/10 bg-white hover:border-storm-lime transition-colors duration-300 flex flex-col"
-                                    >
-                                        <div className="mb-6">
-                                            <h4 className="text-xl font-bold mb-2">{tier.name}</h4>
-                                            <p className="text-storm-lime text-2xl font-mono mb-4">{tier.price}</p>
+                {/* Content Container */}
+                <div className="relative z-10 pt-[25vh] md:pt-[35vh]">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {pricingPackages.map((pkg, idx) => (
+                            <div
+                                key={idx}
+                                className="group relative rounded-[30px] border-2 border-agency-black/10 bg-white/20 backdrop-blur-sm p-8 transition-all duration-300 hover:-translate-y-2 hover:border-agency-black"
+                            >
+                                <div className="relative flex flex-col h-full justify-between h-[450px]">
+                                    <div>
+                                        {/* Title - Flat Bold */}
+                                        <h3 className="font-display text-3xl md:text-4xl font-black tracking-tight mb-2 text-left text-agency-black">
+                                            {pkg.title}
+                                        </h3>
 
-                                            {/* Description - Revealed on Hover */}
-                                            <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
-                                                <div className="overflow-hidden">
-                                                    <p className="text-agency-black/60 text-sm leading-relaxed mb-4">
-                                                        {tier.description}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        {/* Price - Flat Bold */}
+                                        <div className="text-left mb-6">
+                                            <span className="inline-block font-display text-5xl md:text-6xl font-black tracking-tighter text-agency-black">
+                                                {pkg.price}
+                                            </span>
                                         </div>
 
-                                        <ul className="space-y-4 mb-8 flex-1">
-                                            {tier.features.map((feat, fIdx) => (
-                                                <li key={fIdx} className="flex items-start gap-3 text-sm text-agency-black/80">
-                                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-storm-lime flex-shrink-0" />
-                                                    <span className="leading-relaxed">{feat}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        <p className="font-medium text-left text-agency-black/80 mb-6 text-sm leading-relaxed">
+                                            {pkg.description}
+                                        </p>
 
-                                        <button
-                                            onClick={() => navigate('/contact')}
-                                            className="w-full py-4 border border-agency-black/20 hover:bg-storm-lime hover:border-storm-lime hover:text-agency-black transition-all duration-300 text-sm font-medium tracking-widest uppercase"
-                                        >
-                                            Select Plan
-                                        </button>
+                                        {/* Features List */}
+                                        <div className="border-t border-agency-black/10 pt-6 mb-6">
+                                            <ul className="space-y-3">
+                                                {pkg.features.map((feature, i) => (
+                                                    <li key={i} className="flex items-start gap-3">
+                                                        <div className="h-1.5 w-1.5 rounded-full bg-agency-black mt-2 shrink-0"></div>
+                                                        <span className="font-bold text-agency-black text-sm">{feature}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
-                                ))}
+
+                                    {/* CTA Button */}
+                                    <button className="w-full py-4 rounded-xl bg-agency-black font-black text-storm-lime uppercase tracking-widest text-sm transition-all hover:bg-white hover:text-agency-black border border-transparent hover:border-agency-black">
+                                        Select Plan
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import StudioStatement from '../components/StudioStatement';
 import ExpertiseSection from '../components/ExpertiseSection';
 import Capabilities from '../components/Capabilities';
+import PricingSection from '../components/PricingSection';
 import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
@@ -89,10 +90,19 @@ export default function Home() {
                 </section>
             ))}
 
-            {/* 4. Capabilities & Footer - Final Layer */}
+            {/* 4. Capabilities - Final Layer */}
             {/* Stacking logic: If last expertise is z-34, this needs to be higher */}
-            <section className="relative w-full min-h-screen bg-agency-black shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" style={{ zIndex: 30 + expertises.length + 1 }}>
+            <section className="relative w-full min-h-screen bg-[#e0e5ec] shadow-[0_-5px_20px_rgba(0,0,0,0.05)]" style={{ zIndex: 30 + expertises.length + 1 }}>
                 <Capabilities />
+            </section>
+
+            {/* 5. Pricing Section - Standalone */}
+            <section className="relative w-full" style={{ zIndex: 30 + expertises.length + 2 }}>
+                <PricingSection />
+            </section>
+
+            {/* 6. Clients, Testimonials, FAQ */}
+            <section className="relative w-full bg-agency-black" style={{ zIndex: 30 + expertises.length + 3 }}>
                 <Clients />
                 <Testimonials />
                 <FAQ />

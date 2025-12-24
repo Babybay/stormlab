@@ -11,7 +11,7 @@ const techLogos = [
 
 export default function Clients() {
     return (
-        <section className="bg-storm-lime py-5 border-y border-agency-black">
+        <section className="bg-storm-lime py-5">
             <div className="w-full text-agency-black opacity-100 hover:opacity-80 transition-opacity duration-500">
                 <LogoLoop
                     logos={techLogos}
