@@ -6,7 +6,7 @@ const REPEAT_COUNT = 10; // Creating enough copies for smoothness
 
 const tickerItems = Array(REPEAT_COUNT).fill(null).map((_, i) => ({
     node: (
-        <span className="text-[16px] font-light uppercase tracking-wider px-2 whitespace-nowrap font-display">
+        <span className="text-[16px] leading-none font-light uppercase tracking-wider px-2 whitespace-nowrap font-display pt-[4px]">
             {TICKER_TEXT}
         </span>
     ),
