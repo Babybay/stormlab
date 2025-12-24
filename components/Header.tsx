@@ -158,8 +158,7 @@ export default function Header() {
                         "Strategic Planning",
                         "Social Media Planning",
                         "SEO & Content Marketing",
-                        "Design and Graphics",
-                        "Analytics & Reporting"
+                        "Design and Graphics"
                       ].map((item, idx) => (
                         <li key={idx} className="overflow-hidden">
                           <Link
@@ -223,8 +222,7 @@ export default function Header() {
                 "Strategic Planning",
                 "Social Media Planning",
                 "SEO & Content Marketing",
-                "Design and Graphics",
-                "Analytics & Reporting"
+                "Design and Graphics"
               ].map((item, idx) => (
                 <li key={idx}>
                   <Link

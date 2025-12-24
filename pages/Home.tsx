@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import StudioStatement from '../components/StudioStatement';
 import ExpertiseSection from '../components/ExpertiseSection';
@@ -7,8 +7,9 @@ import PricingSection from '../components/PricingSection';
 import Clients from '../components/Clients';
 import FAQ from '../components/FAQ';
 import Testimonials from '../components/Testimonials';
+import { client, urlFor } from '../lib/sanity'; // Import Sanity client
 
-const expertises = [
+const initialExpertises = [
     {
         id: "strategic-planning",
         title: "Strategic Planning",
@@ -48,20 +49,50 @@ const expertises = [
             { name: "Brand Identity", category: "Design", image: "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Design+I", url: "/work/design-1" },
             { name: "Visual Assets", category: "Graphics", image: "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Design+II", url: "/work/design-2" }
         ]
-    },
-    {
-        id: "analytics-reporting",
-        title: "Analytics & Reporting",
-        description: "Track performance metrics and gain actionable insights to optimize your marketing campaigns.",
-        link: "/services/analytics",
-        projects: [
-            { name: "Performance Dashboard", category: "Analytics", image: "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Analytics+I", url: "/work/analytics-1" },
-            { name: "Growth Reports", category: "Data", image: "https://placehold.co/800x600/1a1a1a/FFFFFF?text=Analytics+II", url: "/work/analytics-2" }
-        ]
     }
 ];
 
 export default function Home() {
+    // 1. Initialize with defaul structure (Title, Description, Links)
+    const [expertises, setExpertises] = useState<any[]>(initialExpertises);
+
+    useEffect(() => {
+        // 2. Fetch ALL Highlighted Projects
+        const query = `*[_type == "project" && "Highlight" in tags] | order(_createdAt desc) {
+            title,
+            serviceCategory,
+            "category": tags[0],
+            mainImage,
+            "slug": slug.current
+        }`;
+
+        client.fetch(query).then((projects) => {
+            if (!projects || projects.length === 0) return;
+
+            // 3. Map Projects to Sections
+            const updatedExpertises = initialExpertises.map((section) => {
+                // Find projects that match this section's ID (e.g., 'strategic-planning')
+                const sectionProjects = projects.filter((p: any) => p.serviceCategory === section.id);
+
+                // If backend projects exist for this category, use them.
+                // Otherwise fall back to default (or empty if preferred, currently keeping default for demo).
+                if (sectionProjects.length > 0) {
+                    return {
+                        ...section,
+                        projects: sectionProjects.map((proj: any) => ({
+                            name: proj.title,
+                            category: proj.category || 'Project',
+                            image: proj.mainImage ? urlFor(proj.mainImage).url() : 'https://placehold.co/800x600/1a1a1a/FFFFFF?text=No+Image',
+                            url: `/work/${proj.slug}`
+                        }))
+                    };
+                }
+                return section; // Keep default if no backend projects
+            });
+
+            setExpertises(updatedExpertises);
+        }).catch(console.error);
+    }, []);
     return (
         <main className="relative w-full isolate">
             {/* 1. Hero */}

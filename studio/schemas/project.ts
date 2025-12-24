@@ -47,6 +47,19 @@ export default {
             type: 'text',
         },
         {
+            name: 'serviceCategory',
+            title: 'Service Category',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Strategic Planning', value: 'strategic-planning' },
+                    { title: 'Social Media Planning', value: 'social-media' },
+                    { title: 'SEO & Content Marketing', value: 'seo-content' },
+                    { title: 'Design and Graphics', value: 'design-graphics' },
+                ],
+            },
+        },
+        {
             name: 'tags',
             title: 'Tags',
             type: 'array',
