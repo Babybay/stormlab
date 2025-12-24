@@ -1,6 +1,6 @@
-
 import React from 'react';
 import CardNav, { CardNavItem } from './CardNav';
+import NavTicker from './NavTicker';
 
 export default function Header() {
   const navItems: CardNavItem[] = [
@@ -36,7 +36,7 @@ export default function Header() {
   ];
 
   return (
-    <>
+    <div className="fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[999] top-[1.2em] md:top-[2em] flex flex-col gap-2">
       <CardNav
         logo="StormLab."
         logoAlt="StormLab Logo"
@@ -45,7 +45,9 @@ export default function Header() {
         menuColor="#000000"
         buttonBgColor="#000000"
         buttonTextColor="#ccff00"
+        className="!relative !inset-auto !w-full !max-w-none !transform-none !top-auto !left-auto"
       />
-    </>
+      <NavTicker />
+    </div>
   );
 }
