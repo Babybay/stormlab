@@ -2,7 +2,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const steps = [
     {
@@ -51,6 +52,7 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzznaagy";
 
 export default function Contact() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(0);
     const [formData, setFormData] = useState({ name: '', email: '', project: '', budget: '' });
     const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
@@ -60,6 +62,7 @@ export default function Contact() {
 
     useGSAP(() => {
         gsap.from(containerRef.current, { opacity: 0, duration: 1.2, ease: "power2.out" });
+        gsap.from(".custom-nav", { y: -20, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out" });
     }, { scope: containerRef });
 
     useEffect(() => {
@@ -80,6 +83,8 @@ export default function Contact() {
 
         return () => ctx.revert();
     }, [currentStep, isCompleted]);
+
+    // ... validation and submitForm omitted for brevity in diff ...
 
     const validate = () => {
         const step = steps[currentStep];
@@ -177,7 +182,17 @@ export default function Contact() {
 
     if (isCompleted) {
         return (
-            <div className="min-h-screen bg-[#121212] flex flex-col items-center justify-center p-8 text-center text-white">
+            <div className="min-h-screen bg-[#121212] flex flex-col items-center justify-center p-8 text-center text-white relative">
+                {/* Custom Header for Success State too */}
+                <div className="absolute top-0 left-0 w-full px-5 md:px-[65px] pt-8 md:pt-12 flex justify-between items-center z-50">
+                    <button onClick={() => navigate(-1)} className="text-white hover:text-storm-lime transition-colors">
+                        <ArrowLeft size={32} />
+                    </button>
+                    <Link to="/" className="font-display font-black text-2xl md:text-3xl tracking-tight text-white hover:text-storm-lime transition-colors">
+                        STORMLAB.
+                    </Link>
+                </div>
+
                 <div className="p-12 rounded-[40px] bg-[#121212] shadow-[20px_20px_60px_#050505,-20px_-20px_60px_#1f1f1f]">
                     <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-storm-lime">
                         Received.
@@ -199,7 +214,25 @@ export default function Contact() {
     const step = steps[currentStep];
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-[#121212] flex flex-col pt-[120px] pb-[40px] px-[20px] md:px-[65px] relative font-sans">
+        <div ref={containerRef} className="min-h-screen bg-[#121212] flex flex-col pt-[160px] pb-[40px] px-[20px] md:px-[65px] relative font-sans">
+
+            {/* Custom Navigation Header */}
+            <div className="custom-nav absolute top-0 left-0 w-full px-5 md:px-[65px] pt-8 md:pt-12 flex justify-between items-center z-50">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="p-2 -ml-2 text-white/50 hover:text-white hover:scale-110 transition-all duration-300"
+                    aria-label="Go Back"
+                >
+                    <ArrowLeft size={32} />
+                </button>
+
+                <Link
+                    to="/"
+                    className="font-display font-black text-2xl md:text-3xl tracking-tight text-white/90 hover:text-storm-lime transition-colors"
+                >
+                    STORMLAB.
+                </Link>
+            </div>
 
             {/* Progress Bar Container (Inset Shadow) */}
             <div className="absolute top-[120px] left-[20px] md:left-[65px] right-[20px] md:right-[65px] h-2 rounded-full bg-[#121212] shadow-[inset_2px_2px_5px_#050505,inset_-2px_-2px_5px_#1f1f1f] overflow-hidden">

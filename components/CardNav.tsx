@@ -190,13 +190,16 @@ const CardNav: React.FC<CardNavProps> = ({
                         </Link>
                     </div>
 
-                    <button
-                        type="button"
-                        className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300"
+                    <Link
+                        to="/contact"
+                        className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] w-32 items-center h-full font-medium cursor-pointer transition-colors duration-300 relative overflow-hidden group/btn"
                         style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
                     >
-                        Get Started
-                    </button>
+                        <div className="relative w-full h-full flex flex-col items-center justify-center transition-transform duration-300 group-hover/btn:-translate-y-full">
+                            <span className="flex items-center justify-center h-full w-full">Get Started</span>
+                            <span className="absolute top-full left-0 w-full h-full flex items-center justify-center">Get Started</span>
+                        </div>
+                    </Link>
                 </div>
 
                 <div

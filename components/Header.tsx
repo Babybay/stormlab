@@ -13,8 +13,11 @@ export default function Header() {
   const containerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isContact = location.pathname === '/contact';
 
   useGSAP(() => {
+    if (isContact) return; // Skip GSAP if contact
+
     if (isHome) {
       // Set initial state for animation
       gsap.set(containerRef.current, { y: -150, autoAlpha: 0, xPercent: -50 });
@@ -68,6 +71,8 @@ export default function Header() {
       ],
     },
   ];
+
+  if (isContact) return null;
 
   return (
     <div ref={containerRef} className="fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[999] top-[1.2em] md:top-[2em] flex flex-col gap-2">
