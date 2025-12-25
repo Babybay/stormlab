@@ -13,22 +13,7 @@ export default function Footer() {
     { name: 'Email', href: 'mailto:stormlab.creative@gmail.com' }
   ]);
 
-  useGSAP(() => {
-    // 1. Link Stagger
-    gsap.from(".footer-link-group", {
-      y: 20,
-      opacity: 0,
-      stagger: 0.1,
-      duration: 1,
-      delay: 0.3,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 70%"
-      }
-    });
 
-  }, { scope: containerRef });
 
   React.useEffect(() => {
     import('../lib/sanity').then(({ client }) => {

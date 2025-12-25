@@ -1,13 +1,7 @@
 
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Light Neumorphic Card (Refined)
+// Light Neumorphic Card
 const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
     <div className={`bg-[#e0e5ec] rounded-[30px] p-8 md:p-12 shadow-[12px_12px_24px_rgb(163,177,198,0.6),-12px_-12px_24px_rgba(255,255,255,0.7)] border border-white/50 ${className}`}>
         {children}
@@ -15,144 +9,42 @@ const Card = ({ children, className = "" }: { children: React.ReactNode, classNa
 );
 
 export default function About() {
-    const mainRef = useRef<HTMLDivElement>(null);
-    const heroRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top top",
-                end: "+=100%",
-                scrub: 1,
-                pin: true,
-            }
-        });
-
-        // 1. Text Color Shift: Inset (Gray) -> Solid Black
-        tl.to(".hero-text", {
-            color: "#1a1a1a", // Agency Black
-            textShadow: "0px 0px 0px rgba(0,0,0,0)",
-            ease: "power2.inOut",
-        }, 0);
-
-        // 2. Subtext Shift
-        tl.to(".hero-subtext", {
-            color: "#1a1a1a",
-            opacity: 1,
-            ease: "power2.inOut",
-        }, 0);
-
-        // 3. Grid Lines Light Up
-        tl.to(".hero-grid-line", {
-            backgroundColor: "#ccff00", // Storm Lime
-            opacity: 1,
-            stagger: 0.1,
-            ease: "power1.out",
-        }, 0);
-
-        // 4. Grid Cells Pulse
-        tl.to(".hero-grid-cell", {
-            backgroundColor: "rgba(224, 229, 236, 1)", // Back to base
-            boxShadow: "inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff", // Pressed look
-            stagger: {
-                amount: 1,
-                grid: [4, 4],
-                from: "center"
-            }
-        }, 0);
-
-
-        // ENTER ANIMATON FOR CARDS
-        gsap.utils.toArray<HTMLElement>('.grid-item').forEach((item, i) => {
-            gsap.from(item, {
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 85%"
-                }
-            });
-        });
-
-    }, { scope: mainRef });
-
     return (
-        <main ref={mainRef} className="min-h-screen bg-[#e0e5ec] font-sans selection:bg-storm-lime selection:text-black pb-32">
+        <main className="min-h-screen bg-[#e0e5ec] font-sans selection:bg-storm-lime selection:text-black pb-32 pt-32">
 
-            {/* NEW HERO SECTION WITH SCROLL MOTION */}
-            <div ref={heroRef} className="h-screen w-full relative flex items-center justify-center overflow-hidden bg-[#e0e5ec]">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12">
 
-                {/* DECORATIVE GRID BACKGROUND */}
-                <div className="absolute inset-0 grid grid-cols-4 md:grid-cols-8 grid-rows-4 opacity-30 pointer-events-none">
-                    {Array.from({ length: 32 }).map((_, i) => (
-                        <div key={i} className="hero-grid-cell border border-agency-black/5 flex items-center justify-center">
-                            <div className="w-1 h-1 bg-agency-black/10 rounded-full"></div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* HORIZONTAL GRID LINES */}
-                <div className="absolute top-1/4 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-3/4 left-0 w-full h-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                {/* VERTICAL GRID LINES */}
-                <div className="absolute top-0 left-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-                <div className="absolute top-0 right-1/4 h-full w-[1px] bg-agency-black/10 hero-grid-line opacity-20"></div>
-
-
-                <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
-                    {/* MAIN HEADLINE */}
-                    <h1 className="hero-text text-[18vw] md:text-[14vw] font-display font-black text-neumorph-inset leading-[0.8] tracking-tighter uppercase mb-8 md:mb-12 cursor-default select-none">
-                        WHO WE<br />
-                        <span className="inline-block relative">
-                            ARE
-                            {/* Accent Dot */}
-                            <span className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-4 h-4 md:w-8 md:h-8 bg-storm-lime rounded-full shadow-[2px_2px_4px_#a3b1c6,-2px_-2px_4px_#ffffff]"></span>
-                        </span>
+                {/* HERO TEXT */}
+                <div className="text-center mb-24 cursor-default">
+                    <h1 className="py-12 text-[18vw] md:text-[14vw] font-display font-black text-[#e0e5ec] text-shadow-neumorph leading-[0.8] tracking-tighter uppercase mb-8 md:mb-12 select-none" style={{ textShadow: "10px 10px 20px #a3b1c6, -10px -10px 20px #ffffff" }}>
+                        WHO WE ARE
                     </h1>
-
-                    {/* SUBTEXT */}
-                    <div className="hero-subtext text-agency-black/50 text-xl md:text-3xl font-light tracking-wide max-w-2xl mx-auto opacity-70">
-                        <span className="block font-bold mb-2 uppercase text-xs tracking-[0.2em] text-storm-lime">Scroll to Reveal</span>
+                    <div className="text-agency-black/50 text-xl md:text-3xl font-light tracking-wide max-w-2xl mx-auto opacity-70">
                         A multidisciplinary collective defining the new standard.
                     </div>
                 </div>
 
-                {/* SCROLL INDICATOR */}
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-                    <div className="w-[1px] h-12 bg-agency-black/20 overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-full h-1/2 bg-storm-lime animate-bounce"></div>
-                    </div>
-                </div>
-            </div>
-
-            {/* SPACER FOR SCROLL LOGIC */}
-            <div className="h-[20vh] w-full"></div>
-
-            {/* IMMERSIVE BENTO GRID (Preserved) */}
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
+                {/* BENTO GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-12">
 
                     {/* 1. THE ORIGIN (Large Block) */}
-                    <div className="grid-item lg:col-span-8">
-                        <Card className="h-full flex flex-col justify-between group hover:bg-[#e6ebf2] transition-colors duration-500">
+                    <div className="lg:col-span-8">
+                        <Card className="h-full flex flex-col justify-between hover:bg-[#e6ebf2] transition-colors duration-500">
                             <div>
-                                <h3 className="text-4xl md:text-5xl font-display font-bold text-agency-black mb-8 uppercase tracking-wide group-hover:text-storm-lime transition-colors">The Origin</h3>
+                                <h3 className="text-4xl md:text-5xl font-display font-bold text-agency-black mb-8 uppercase tracking-wide">The Origin</h3>
                                 <p className="text-xl md:text-2xl text-agency-black/80 leading-relaxed max-w-3xl font-medium">
                                     StormLab was born from a simple observation: the web has become boring. We set out to build an agency that rejects templates and embraces the chaotic energy of true innovation.
                                 </p>
                             </div>
                             <div className="mt-16 flex items-end justify-between">
-                                <span className="text-9xl font-display font-black text-neumorph-inset opacity-50">01</span>
+                                <span className="text-9xl font-display font-black text-agency-black/5 select-none opacity-50">01</span>
                                 <div className="hidden md:block w-32 h-1 bg-agency-black/10"></div>
                             </div>
                         </Card>
                     </div>
 
-                    {/* 2. STATS (Tall Block) */}
-                    <div className="grid-item lg:col-span-4 lg:row-span-2">
+                    {/* 2. STATS */}
+                    <div className="lg:col-span-4 lg:row-span-2">
                         <Card className="h-full flex flex-col justify-center items-center text-center py-16">
                             <div className="mb-16">
                                 <span className="block text-8xl font-display font-black text-agency-black mb-2">25+</span>
@@ -165,8 +57,8 @@ export default function About() {
                         </Card>
                     </div>
 
-                    {/* 3. PHILOSOPHY (Medium Block) */}
-                    <div className="grid-item lg:col-span-4">
+                    {/* 3. PHILOSOPHY */}
+                    <div className="lg:col-span-4">
                         <Card className="h-full">
                             <h3 className="text-3xl font-display font-bold text-agency-black mb-6 uppercase">Philosophy</h3>
                             <p className="text-lg text-agency-black/70 leading-relaxed font-medium">
@@ -175,8 +67,8 @@ export default function About() {
                         </Card>
                     </div>
 
-                    {/* 4. METHOD (Medium Block) */}
-                    <div className="grid-item lg:col-span-4">
+                    {/* 4. METHOD */}
+                    <div className="lg:col-span-4">
                         <Card className="h-full">
                             <h3 className="text-3xl font-display font-bold text-agency-black mb-6 uppercase">Method</h3>
                             <p className="text-lg text-agency-black/70 leading-relaxed font-medium">
@@ -185,24 +77,22 @@ export default function About() {
                         </Card>
                     </div>
 
-                    {/* 5. VISUAL BREAK (Full Width) */}
-                    <div className="grid-item lg:col-span-12">
-                        <div className="relative py-32 flex items-center justify-center overflow-hidden rounded-[30px]">
-                            {/* Neumorphic Background Text */}
-                            <span className="absolute inset-0 flex items-center justify-center text-[20vw] font-display font-black text-neumorph-inset select-none pointer-events-none opacity-60">
+                    {/* 5. VISUAL BREAK */}
+                    <div className="lg:col-span-12">
+                        <div className="relative py-32 flex items-center justify-center overflow-hidden rounded-[30px] shadow-[inset_10px_10px_20px_#a3b1c6,inset_-10px_-10px_20px_#ffffff] bg-[#e0e5ec]">
+                            <span className="absolute inset-0 flex items-center justify-center text-[20vw] font-display font-black text-agency-black/5 select-none pointer-events-none">
                                 STORM
                             </span>
-
-                            <div className="relative z-10 text-center max-w-4xl">
+                            <div className="relative z-10 text-center max-w-4xl px-4">
                                 <p className="text-4xl md:text-6xl font-black text-agency-black leading-tight">
-                                    "We don't just build websites.<br /> We build <span className="text-storm-lime inline-block transform hover:skew-x-12 transition-transform duration-300">digital empires</span>."
+                                    "We don't just build websites.<br /> We build <span className="text-storm-lime inline-block">digital empires</span>."
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* 6. THE COLLECTIVE (Wide Block) */}
-                    <div className="grid-item lg:col-span-7">
+                    {/* 6. THE COLLECTIVE */}
+                    <div className="lg:col-span-7">
                         <Card className="h-full">
                             <h3 className="text-4xl font-display font-bold text-agency-black mb-8 uppercase">The Collective</h3>
                             <div className="space-y-8">
@@ -231,13 +121,14 @@ export default function About() {
                         </Card>
                     </div>
 
-                    {/* 7. CTA (Wide Block) */}
-                    <Link to="/contact" className="grid-item lg:col-span-5 group">
-                        <Card className="h-full bg-agency-black flex flex-col items-center justify-center text-center shadow-[12px_12px_24px_#a3b1c6,-12px_-12px_24px_#ffffff] group-hover:scale-[0.98] transition-transform duration-300 border-none">
+                    {/* 7. CTA */}
+                    <div className="lg:col-span-5 relative group cursor-pointer" onClick={() => window.location.href = '/contact'}>
+                        <div className="absolute inset-0 bg-[#e0e5ec] rounded-[30px] shadow-[12px_12px_24px_rgb(163,177,198,0.6),-12px_-12px_24px_rgba(255,255,255,0.7)] group-hover:first-letter:shadow-[inset_5px_5px_10px_#a3b1c6,inset_-5px_-5px_10px_#ffffff] transition-all duration-300"></div>
+                        <div className="h-full bg-agency-black rounded-[30px] flex flex-col items-center justify-center text-center p-8 relative z-10 transition-transform duration-300 group-hover:scale-[0.98]">
                             <span className="text-6xl md:text-8xl font-display font-black text-white mb-4 group-hover:text-storm-lime transition-colors">START<br />NOW.</span>
                             <div className="w-16 h-1 bg-white/20 rounded-full mt-4 group-hover:w-32 transition-all duration-300 bg-storm-lime"></div>
-                        </Card>
-                    </Link>
+                        </div>
+                    </div>
 
                 </div>
             </div>

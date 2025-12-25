@@ -35,12 +35,12 @@ const steps = [
         title: "Package Selection",
         question: "Which package interests you?",
         options: [
-            { label: "Web Strategy: Starter", value: "Web Strategy: Starter", description: "Perfect for small businesses or startups." },
-            { label: "Web Strategy: Growth", value: "Web Strategy: Growth", description: "For businesses needing a serious roadmap." },
-            { label: "Social Media: Starter", value: "Social Media: Starter", description: "Essential social foundation to get you started." },
-            { label: "Design: Starter", value: "Design: Starter", description: "Quick, high-quality assets for your feed." },
-            { label: "Design: Growth", value: "Design: Growth", description: "Consistent visual identity for growing brands." },
-            { label: "Design: Pro", value: "Design: Pro", description: "Full-scale creative direction and campaign support." },
+            { label: "Web Strategy", value: "Web Strategy", description: "Complete digital roadmaps and development." },
+            { label: "Social Media Planning", value: "Social Media Planning", description: "Strategy, content, and community growth." },
+            { label: "Design & Branding", value: "Design & Branding", description: "Visual identity and creative direction." },
+            { label: "RAPID LAUNCH", value: "RAPID LAUNCH", description: "Quick, high-impact market entry." },
+            { label: "GROWTH ENGINE", value: "GROWTH ENGINE", description: "Scaling with full redesign & automation." },
+            { label: "DOMINANCE", value: "DOMINANCE", description: "End-to-end digital transformation." },
             { label: "Custom / Not Sure", value: "Custom", description: "Let's discuss your unique needs." }
         ],
         field: "budget",
