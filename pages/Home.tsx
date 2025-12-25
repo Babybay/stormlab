@@ -10,11 +10,16 @@ import LogoLoop from '../components/LogoLoop';
 import PricingSection from '../components/PricingSection';
 import FAQ from '../components/FAQ';
 
+import ServicesSection from '../components/ServicesSection';
+
 // Dummy Data for ExpertiseSection
 const expertiseProjects = [
-    { name: 'Neon Horizon', category: 'Web Development', image: 'https://picsum.photos/seed/neon/800/600', url: '#' },
-    { name: 'Cyber Pulse', category: 'Brand Identity', image: 'https://picsum.photos/seed/cyber/800/600', url: '#' },
-    { name: 'Quantum Flow', category: 'UI/UX Design', image: 'https://picsum.photos/seed/flow/800/600', url: '#' },
+    { name: 'KINETIC', category: 'Fintech Mobile App', image: 'https://picsum.photos/seed/kinetic/800/600', url: '#' },
+    { name: 'AURA', category: 'Luxury E-Commerce', image: 'https://picsum.photos/seed/aura/800/600', url: '#' },
+    { name: 'SYNTH', category: 'AI SaaS Dashboard', image: 'https://picsum.photos/seed/synth/800/600', url: '#' },
+    { name: 'NEXUS', category: 'Web3 Platform', image: 'https://picsum.photos/seed/nexus/800/600', url: '#' },
+    { name: 'ECHO', category: 'Sonic Branding', image: 'https://picsum.photos/seed/echo/800/600', url: '#' },
+    { name: 'FLUX', category: 'Automotive Interface', image: 'https://picsum.photos/seed/flux/800/600', url: '#' },
 ];
 
 // Dummy Data for LogoLoop
@@ -32,19 +37,19 @@ export default function Home() {
             <Hero />
             <MarqueeReveal />
             <StudioStatement />
+
+            <ServicesSection />
             <ExpertiseSection
                 id="expertise"
                 number="01"
-                title="OUR EXPERTISE"
-                description="We combine strategy, design, and technology to build brands that lead."
+                title="WHAT WE'RE WORKING ON"
                 link="#"
-                projects={expertiseProjects}
             />
 
             {/* <GradientBlinds /> */}
-            <Testimonials />
-            <Clients />
             <PricingSection />
+            <Clients />
+            <Testimonials />
             <FAQ />
             {/* <Footer /> is likely initialized in Layout or App, but if not present here it might be needed? User only asked to reveal hidden ones. */}
         </div>

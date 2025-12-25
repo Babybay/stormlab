@@ -7,26 +7,35 @@ import NavTicker from './NavTicker';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import { useLocation } from 'react-router-dom';
+
 export default function Header() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useGSAP(() => {
-    gsap.fromTo(containerRef.current,
-      { y: -150, autoAlpha: 0, xPercent: -50 },
-      {
+    if (isHome) {
+      // Set initial state for animation
+      gsap.set(containerRef.current, { y: -150, autoAlpha: 0, xPercent: -50 });
+
+      gsap.to(containerRef.current, {
         y: 0,
         autoAlpha: 1,
         xPercent: -50,
         duration: 0.6,
-        ease: "back.out(1.4)", // Pop up effect
+        ease: "back.out(1.4)",
         scrollTrigger: {
           trigger: "body",
-          start: "640px top", // Approximately after Hero section
+          start: "640px top",
           toggleActions: "play none none reverse",
         }
-      }
-    );
-  }, { scope: containerRef });
+      });
+    } else {
+      // Ensure visible and interactive on other pages
+      gsap.set(containerRef.current, { y: 0, autoAlpha: 1, xPercent: -50 });
+    }
+  }, { scope: containerRef, dependencies: [location.pathname] });
 
   const navItems: CardNavItem[] = [
     {
@@ -61,7 +70,7 @@ export default function Header() {
   ];
 
   return (
-    <div ref={containerRef} className="fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[999] top-[1.2em] md:top-[2em] flex flex-col gap-2 invisible">
+    <div ref={containerRef} className="fixed left-1/2 -translate-x-1/2 w-[90%] max-w-[800px] z-[999] top-[1.2em] md:top-[2em] flex flex-col gap-2">
       <CardNav
         logo="StormLab."
         logoAlt="StormLab Logo"
