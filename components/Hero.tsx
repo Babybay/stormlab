@@ -1,88 +1,90 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import CircularGallery from './CircularGallery';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    // Premium Staggered Text Reveal
-    tl.from(titleRef.current?.querySelectorAll('.char') || [], {
-      yPercent: 100,
-      opacity: 0,
-      rotateX: -90,
-      stagger: 0.03,
+    // Initial States
+    gsap.set(".reveal-text", { yPercent: 100 });
+    gsap.set(".hero-fade", { opacity: 0 });
+
+    // Animation Sequence (Masked Reveal)
+    tl.to(".reveal-text", {
+      yPercent: 0,
       duration: 1.5,
-      ease: "power4.out",
-      transformOrigin: "0% 50% -50"
-    });
-
-    // Description Text Stagger
-    tl.from(textRef.current?.querySelectorAll('span') || [], {
-      y: 30,
-      opacity: 0,
-      stagger: 0.015,
-      duration: 1,
-      ease: "power3.out"
-    }, "-=1.0"); // Overlap slightly with title
-
-    // Floating circle graphic animation (subtle parallax or float)
-    const circle = textRef.current?.querySelector('.animate-spin-slow');
-    if (circle) {
-      gsap.from(circle, {
-        scale: 0,
-        rotation: -180,
-        duration: 1.5,
-        ease: "back.out(1.7)",
-        delay: 0.5
-      });
-    }
+      stagger: 0.1,
+      ease: "power4.out"
+    })
+      .to(".hero-fade", {
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2
+      }, "-=1.0");
 
   }, { scope: containerRef });
 
-  const wrapChars = (str: string, colorClass: string) => {
-    return str.split('').map((char, index) => (
-      <span key={index} className={`inline-block char ${colorClass}`}>
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
-  };
-
   return (
-    <section ref={containerRef} className="relative min-h-[640px] pt-[90px] pb-[40.8333px] z-10">
-      <div className="ml-auto mr-auto relative w-full h-[470.4px] max-w-[1320px] px-[65.3333px] flex flex-col">
-        <div className="flex flex-wrap -mx-[16.3333px] pb-[40.8333px]">
-          <div className="w-[83.3333%] px-[16.3333px]">
-            <h1 ref={titleRef} className="font-medium text-[67.64px] tracking-[-4.7348px] leading-[62.2998px]">
-              <span className="block mb-2">
-                {wrapChars("Digital.", "text-white")}
-                {wrapChars(" Branding.", "text-white")}
-              </span>
-              <span className="block">
-                {wrapChars("StormLab.", "text-storm-lime")}
-              </span>
+    <section
+      ref={containerRef}
+      className="relative w-full h-screen bg-[#333] flex flex-col justify-between p-6 md:p-12 overflow-hidden z-10"
+    >
+      {/* BACKGROUND GALLERY */}
+      <div className="absolute inset-0 z-0 bg-agency-black mb-0">
+        <CircularGallery
+          bend={2}
+          textColor="#ffffff"
+          borderRadius={0.05}
+        />
+      </div>
+
+      {/* FOREGROUND CONTENT (Overlay) */}
+      <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-12 z-20 pointer-events-none">
+
+        {/* TOP ROW */}
+        <div className="w-full flex justify-between items-start">
+          <div className="overflow-hidden">
+            <h2 className="reveal-text font-sans font-bold text-[1.5vh] md:text-[2vh] tracking-widest uppercase text-white mix-blend-difference">
+              EST. 2024
+            </h2>
+          </div>
+          <div className="overflow-hidden text-right">
+            <h2 className="reveal-text font-sans font-bold text-[1.5vh] md:text-[2vh] tracking-widest uppercase text-white mix-blend-difference">
+              BASED IN INDONESIA<br />
+              AVAILABLE WORLDWIDE
+            </h2>
+          </div>
+        </div>
+
+        {/* CENTER MAIN TITLES */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center flex flex-col items-center justify-center">
+          <div className="w-full py-2 overflow-hidden">
+            {/* NEUMORPHIC TITLE (Updated for Dark BG) */}
+            <h1 className="reveal-text text-[18vw] py-4 leading-[0.8] font-display font-black tracking-tighter cursor-default text-storm-lime drop-shadow-2xl">
+              STORMLAB
             </h1>
           </div>
         </div>
 
-        <div ref={textRef} className="items-end flex flex-wrap mt-auto -mx-[16.3333px]">
-          <div className="w-[33.3333%] ml-[41.6667%] px-[16.3333px] order-1">
-            <p className="text-[14.24px] leading-5 text-white">
-              <span>We</span> <span>are</span> <span>a</span> <span>digital</span> <span>agency</span> <span>providing</span> <span>exceptional</span> <span>marketing,</span> <span>web</span> <span>development,</span> <span>and</span> <span>branding</span> <span>solutions.</span>
+        {/* BOTTOM ROW */}
+        <div className="w-full flex justify-between items-end">
+          <div className="max-w-md overflow-hidden pointer-events-auto">
+            <p className="reveal-text font-sans text-lg md:text-xl font-medium leading-tight text-white mix-blend-difference">
+              We redefine digital landscapes through <span className="underline decoration-2 decoration-storm-lime underline-offset-4">radical design</span>.
             </p>
           </div>
-          <div className="w-[25%] px-[16.3333px]">
-            <div className="w-full flex gap-2">
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.yourstory.com%2Fcs%2F7%2Fa09f22505c6411ea9c48a10bad99c62f%2FAnandjitRayPeripheralVapidSeries-1632330015975.png%3Ffm%3Dpng%26auto%3Dformat%26w%3D800&f=1&nofb=1&ipt=fad901b147e41d9bfaf019445748c40a5a987ece4548b936bf1ebb432e0b84ff" className="w-1/3 h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-300" alt="Surrealism 1" />
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.squarespace-cdn.com%2Fcontent%2Fv1%2F53ced4d0e4b0e38a2bb0b7a3%2F1639954060090-TF1X951Z8YIIOC44E7J8%2Fimage-asset.png&f=1&nofb=1&ipt=ef80e92e731750bed917ad447c1ed0baea75c4b5cf6d8230e230411d7bd57f4c" className="w-1/3 h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-300" alt="Surrealism 2" />
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fnews.viverse.com%2Fwp-content%2Fuploads%2F2025%2F09%2F1.Image-to-3D-case-study-2048x1458.png&f=1&nofb=1&ipt=4afdd5ab9453c0aa8972399e59f1a9f254c3f2c835a10b777be523d16825a5e3" className="w-1/3 h-auto object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-300" alt="Surrealism 3" />
+
+          <div className="overflow-hidden pointer-events-auto cursor-pointer">
+            <div className="hero-fade w-12 h-12 rounded-full border border-white flex items-center justify-center animate-spin-slow text-white">
+              <span className="mb-1 text-2xl">↓</span>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );
