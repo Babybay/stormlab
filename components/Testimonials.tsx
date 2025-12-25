@@ -1,36 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { client } from '../lib/sanity';
 
 interface Testimonial {
-    id: number;
+    id: string;
     text: string;
     author: string;
     role: string;
-    theme: 'pink' | 'green' | 'blue';
+    theme: 'pink' | 'green' | 'blue' | 'gray';
 }
-
-const testimonials: Testimonial[] = [
-    {
-        id: 1,
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        author: "Lorem Ipsum",
-        role: "Dolor Sit Amet",
-        theme: "pink"
-    },
-    {
-        id: 2,
-        text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        author: "Consectetur Adipiscing",
-        role: "Elit Sed",
-        theme: "green"
-    },
-    {
-        id: 3,
-        text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-        author: "Tempor Incididunt",
-        role: "Labore Et Dolore",
-        theme: "blue"
-    }
-];
 
 const QuoteIcon = ({ color }: { color: string }) => (
     <svg width="100%" height="100%" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +29,25 @@ const ArrowRightIcon = () => (
 
 const Testimonials = () => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+    useEffect(() => {
+        const fetchTestimonials = async () => {
+            try {
+                const data = await client.fetch(`*[_type == "testimonial"]{
+                    "id": _id,
+                    text,
+                    author,
+                    role,
+                    theme
+                }`);
+                setTestimonials(data);
+            } catch (error) {
+                console.error("Failed to fetch testimonials:", error);
+            }
+        };
+        fetchTestimonials();
+    }, []);
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
