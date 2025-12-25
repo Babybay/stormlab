@@ -54,6 +54,7 @@ export default function ServicesSection() {
                             className="group relative border-t border-agency-black/10 transition-all duration-300 hover:border-agency-black/30 hover:bg-white/30"
                             onMouseEnter={() => setActiveService(index)}
                             onMouseLeave={() => setActiveService(null)}
+                            onClick={() => setActiveService(activeService === index ? null : index)}
                         >
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-12 md:py-16 px-4 cursor-pointer">
 
@@ -61,7 +62,7 @@ export default function ServicesSection() {
                                     <span className="font-display font-bold text-xl md:text-2xl text-agency-black/40 group-hover:text-agency-black transition-colors">
                                         {service.id}
                                     </span>
-                                    <h3 className="font-display font-black text-4xl md:text-6xl lg:text-7xl uppercase text-agency-black transition-transform duration-300 group-hover:translate-x-4">
+                                    <h3 className="font-display font-black text-3xl md:text-6xl lg:text-7xl uppercase text-agency-black transition-transform duration-300 group-hover:translate-x-4">
                                         {service.title}
                                     </h3>
                                 </div>

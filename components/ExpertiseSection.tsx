@@ -71,9 +71,13 @@ export default function ExpertiseSection({ id, number, title, link }: ExpertiseP
 
         {/* Left Column - Sticky Header */}
         <div className="w-full lg:w-5/12 relative">
-          <div className="sticky top-0 h-auto lg:h-screen flex flex-col justify-center px-6 py-20 lg:p-20">
+          <div className="relative lg:sticky top-0 h-auto lg:h-screen flex flex-col justify-center px-6 py-20 lg:p-20">
 
-            <h2 className="font-display font-black text-6xl md:text-7xl lg:text-8xl text-agency-black/90 uppercase leading-[0.9] tracking-tighter mb-8">
+            <h2 className="font-display font-black text-agency-black/90 uppercase leading-[0.9] tracking-tighter mb-8"
+              style={{
+                fontSize: 'clamp(3rem, 9vw, 8rem)',
+                textShadow: '-4px -4px 8px rgba(255,255,255,0.6), 4px 4px 8px rgba(163,177,198,0.6)'
+              }}>
               WHAT<br />
               WE'RE<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-agency-black to-agency-black/40">WORKING</span><br />
@@ -84,7 +88,7 @@ export default function ExpertiseSection({ id, number, title, link }: ExpertiseP
               A curated selection of our most recent digital products, brand identities, and strategic partnerships.
             </p>
 
-            <a href='/work' className="inline-flex items-center gap-3 group">
+            <a href={link} className="inline-flex items-center gap-3 group">
               <span className="w-14 h-14 rounded-full border border-agency-black/20 flex items-center justify-center group-hover:bg-agency-black group-hover:text-white transition-all duration-300">
                 <ArrowUpRight strokeWidth={1.5} className="transition-transform duration-300 group-hover:rotate-45" />
               </span>
@@ -105,7 +109,7 @@ export default function ExpertiseSection({ id, number, title, link }: ExpertiseP
                   <div className="absolute inset-0 overflow-hidden">
                     {project.mainImage && (
                       <img
-                        src={urlFor(project.mainImage).width(1200).url()}
+                        src={urlFor(project.mainImage).width(800).auto('format').url()}
                         alt={project.title}
                         className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
                       />
