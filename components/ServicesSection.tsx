@@ -6,25 +6,25 @@ const services = [
         id: '01',
         title: "STRATEGY",
         description: "Brand Positioning, Market Analysis & digital roadmaps.",
-        features: ["Market Research", "Brand Strategy", "Go-to-Market", "Persona Development"]
+        features: ["Market Research", "Brand Strategy", "Persona Development"]
     },
     {
         id: '02',
         title: "BRANDING",
         description: "Visual identity systems that command attention.",
-        features: ["Logo Design", "Visual Systems", "Typography", "Art Direction"]
+        features: ["Logo Design", "Typography", "Art Direction"]
     },
     {
         id: '03',
         title: "EXPERIENCE",
         description: "Immersive UI/UX design for web and mobile.",
-        features: ["UI/UX Design", "Wireframing", "Prototyping", "User Testing"]
+        features: ["UI/UX Design", "Prototyping"]
     },
     {
         id: '04',
         title: "ENGINEERING",
         description: "Robust, scalable frontend and backend solutions.",
-        features: ["Web Development", "App Development", "eCommerce", "CMS Integration"]
+        features: ["Web Development", "App Development", "CMS Integration"]
     }
 ];
 

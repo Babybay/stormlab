@@ -19,8 +19,7 @@ const pricingPackages = [
         features: [
             'Full Website Redesign',
             'SEO & Content Strategy',
-            'Marketing Automation',
-            'Monthly Analytics Report'
+            'Marketing Automation'
         ]
     },
     {
@@ -112,6 +111,41 @@ export default function PricingSection() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    {/* Custom / Enterprise CTA */}
+                    <div className="mt-12 w-full">
+                        <div className="relative rounded-[30px] bg-agency-black overflow-hidden p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 group hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] transition-shadow duration-300">
+
+                            {/* Visual/Text */}
+                            <div className="max-w-2xl relative z-10">
+                                <h3 className="font-display font-black text-4xl md:text-6xl text-white uppercase mb-6 leading-none">
+                                    Need a <span className="text-storm-lime relative inline-block">
+                                        Custom
+                                        <svg className="absolute w-full h-3 -bottom-1 left-0 text-storm-lime" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+                                        </svg>
+                                    </span> Solution?
+                                </h3>
+                                <p className="font-sans text-lg text-white/70 leading-relaxed font-light">
+                                    Have a complex project or specific requirements? We build tailored strategy and engineering solutions for enterprise-grade challenges. Let's discuss your vision.
+                                </p>
+                            </div>
+
+                            {/* CTA Button */}
+                            <a href="/contact" className="relative group/btn inline-flex items-center justify-center">
+                                <span className="absolute inset-0 bg-storm-lime translate-x-1.5 translate-y-1.5 rounded-xl transition-transform group-hover/btn:translate-x-0 group-hover/btn:translate-y-0"></span>
+                                <span className="relative inline-flex items-center gap-4 px-10 py-5 rounded-xl bg-white border-2 border-agency-black text-xl font-bold uppercase tracking-wider text-agency-black transition-transform group-hover/btn:-translate-x-1 group-hover/btn:-translate-y-1">
+                                    Contact Us
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                            </a>
+
+                            {/* Decorative BG element */}
+                            <div className="absolute -right-20 -top-20 w-96 h-96 bg-storm-lime/10 rounded-full blur-3xl pointer-events-none"></div>
+                        </div>
                     </div>
                 </div>
             </div>
